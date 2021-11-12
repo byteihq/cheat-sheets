@@ -1,4 +1,4 @@
-## Container's operations complexity cheat sheets
+## Container's operations complexity
 
 | Container | indexing [] | push_back | insert | erase | find |
 |-----------|-------------|-----------|--------|-------|------|
