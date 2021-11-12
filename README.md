@@ -7,3 +7,9 @@
 |list / forward_list| none | O(1) | O(1) | O(1) | none |
 |set / map| O(logN) |none|O(logN)|O(logN)|O(logN)|
 |unordered_set / unordered_map| Q(1) mean | none | O(1) mean| O(1) mean| O(1) mean|
+
+## Hunter
+### Install
+```sh
+wget https://raw.githubusercontent.com/cpp-pm/gate/master/cmake/HunterGate.cmake -O cmake/HunterGate.cmake
+```
