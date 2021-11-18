@@ -13,3 +13,9 @@
 ```sh
 wget https://raw.githubusercontent.com/cpp-pm/gate/master/cmake/HunterGate.cmake -O cmake/HunterGate.cmake
 ```
+
+## Forward_List
+[How to reverse forward list?](https://www.youtube.com/watch?v=PQIHq0vfADI&ab_channel=CodeWhoop)
+
+## List
+Method splice has a linear complexity when we want to splice a part of another list, because we need to recalculate a new size.
