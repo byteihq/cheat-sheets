@@ -1,3 +1,15 @@
+## Content
+- [Container's operations complexity](https://github.com/byteihq/cheat-sheets#containers-operations-complexity)
+- [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
+  - [Install](https://github.com/byteihq/cheat-sheets#install)
+- [Forward_List](https://github.com/byteihq/cheat-sheets#forward_list)
+- [List](https://github.com/byteihq/cheat-sheets#list)
+- [GCC Compile Flags](https://github.com/byteihq/cheat-sheets#gcc-compile-flags)
+- [Pointers](https://github.com/byteihq/cheat-sheets#pointers)
+  - [Pointers with const modidfcator](https://github.com/byteihq/cheat-sheets#pointers-with-const-modidfcator)
+  - [Pointers arithmetic](https://github.com/byteihq/cheat-sheets#pointers-arithmetic)
+  - [Smart Pointers](https://github.com/byteihq/cheat-sheets#smart-pointers)
+
 ## Container's operations complexity
 
 | Container | indexing [] | push_back | insert | erase | find |
