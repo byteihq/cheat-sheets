@@ -84,3 +84,8 @@ int64_t *p64 = &i64;
 p8 += 10; //shift by 10 * sizeof(int8_t) bytes = 10 bytes
 p64 += 10; //shift by 10 * sizeof(int64_t) bytes = 80 bytes;
 ```
+### Smart Pointers
+1. [Scooped Ptr](https://cs.brown.edu/~jwicks/boost/libs/smart_ptr/scoped_ptr.htm) - **uncopyable, unmovable**
+2. [Weak Ptr](https://en.cppreference.com/w/cpp/memory/weak_ptr) - **std::weak_ptr models temporary ownership: when an object needs to be accessed only if it exists, and it may be deleted at any time by someone else, std::weak_ptr is used to track the object, and it is converted to std::shared_ptr to assume temporary ownership. It has __expired__ method to check whether the referenced object was already deleted**
+3. [Unique Ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr) - **uncopyable, movable**
+4. [Shared Ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr) - **copyable, movable (also has atomic reference counter)**
