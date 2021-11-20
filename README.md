@@ -51,7 +51,7 @@ p = &b;
 ```cpp
 int a = 4;
 int b = 1;
-const int* p = &a; //it's equal to int const* p = &a;
+const int *p = &a; //it's equal to int const* p = &a;
 //*p = 2; - this operation is unavailable because p is a pointer to const int
 p = &b; // works fine
 ```
