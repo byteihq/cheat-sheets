@@ -34,3 +34,43 @@ wget https://raw.githubusercontent.com/cpp-pm/gate/master/cmake/HunterGate.cmake
 -Wnon-virtual-dtor - tells the compiler to issue a warning when a class appears to be polymorphic, yet it declares a non-virtual one
 
 [More information](https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html)
+
+## Pointers
+### Pointers with const modidfcator
+1. Just a pointer
+```cpp
+        int a = 4;
+        int b = 1;
+        int *p = &a;
+        *p = 3;
+        p = &b;
+        *p = 2;
+        //there is no error
+```
+2. Pointer to const object
+```cpp
+        int a = 4;
+        int b = 1;
+        const int* p = &a; //it's equal to int const* p = &a;
+        //*p = 2; - this operation is unavailable because p is a pointer to const int
+        p = &b; // works fine
+```
+3. Const pointer to non const object
+```cpp
+        int a = 4;
+        int b = 1;
+        int *const p = &a;
+        *p = 2; //works fine
+        //++p; - this operation is unavailable because p is a const pointer to int
+```
+4. Const pointer to const object
+```cpp
+        int a = 4;
+        int b = 1;
+        const int *const p = &a;
+        /*
+        ++p;
+        p = &b;
+        these operations are unavailable because p is a const pointer to const int
+        */
+```
