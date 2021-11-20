@@ -74,3 +74,13 @@ p = &b;
 these operations are unavailable because p is a const pointer to const int
 */
 ```
+### Pointers arithmetic
+```cpp
+  int8_t i8;
+  int64_t i64;
+  int8_t *p8 = &i8;
+  int64_t *p64 = &i64;
+
+  p8 += 10; //shift by 10 * sizeof(int8_t) bytes = 10 bytes
+  p64 += 10; //shift by 10 * sizeof(int64_t) bytes = 80 bytes;
+```
