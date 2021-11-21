@@ -26,10 +26,43 @@
 wget https://raw.githubusercontent.com/cpp-pm/gate/master/cmake/HunterGate.cmake -O cmake/HunterGate.cmake
 ```
 
+## Vector
+### [Implementation](https://github.com/byteihq/Vector)
+
+## Deque
+### [Idea](https://github.com/byteihq/Deque)
+
 ## Forward_List
+### Idea
+```cpp
+template<typename T>
+class ForwardList {
+private:
+    struct Node {
+        T value_;
+        Node* next_;
+    };
+    Node* head_;
+};
+```
+### Notes
 [How to reverse a forward list?](https://www.youtube.com/watch?v=PQIHq0vfADI&ab_channel=CodeWhoop)
 
 ## List
+### Idea
+```cpp
+template<typename T>
+class List {
+private:
+    struct Node {
+        T value_;
+        Node* next_;
+        Node* prev_;
+    };
+    Node* head_;
+};
+```
+### Notes
 [Method splice has a linear complexity when we want to splice a part of another list, because we need to recalculate a new size](https://en.cppreference.com/w/cpp/container/list/splice)
 
 ## GCC Compile Flags
