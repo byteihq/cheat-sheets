@@ -4,6 +4,11 @@
   - [Implementation](https://github.com/byteihq/cheat-sheets#implementation)
 - [Deque](https://github.com/byteihq/cheat-sheets#deque)
   - [Idea](https://github.com/byteihq/cheat-sheets#idea)
+- [Stack](https://github.com/byteihq/cheat-sheets#stack)
+  - [Idea](https://github.com/byteihq/cheat-sheets#idea-1)
+  - [Notes](https://github.com/byteihq/cheat-sheets#notes)
+- [Queue](https://github.com/byteihq/cheat-sheets#queue)
+- [Priority Queue](https://github.com/byteihq/cheat-sheets#priority-queue)
 - [Forward_List](https://github.com/byteihq/cheat-sheets#forward_list)
   - [Idea](https://github.com/byteihq/cheat-sheets#idea-1)
   - [Notes](https://github.com/byteihq/cheat-sheets#notes)
@@ -56,13 +61,13 @@ private:
 };
 ```
 ### Notes
-Stack is a LIFO data structure. It has methods push (by default it calls deque.push_back()) and pop (by default it calls deque.pop_back())
+_Stack is a LIFO data structure. It has methods push (by default it calls deque.push_back()) and pop (by default it calls deque.pop_back())_
 
 ## Queue
-Similar to stack, but it's a FIFO data structure. Also has methods push (by default it calls deque.push_back()) and pop (by default it calls deque.pop_front())
+_Similar to stack, but it's a FIFO data structure. Also has methods push (by default it calls deque.push_back()) and pop (by default it calls deque.pop_front())_
 
 ## Priority Queue
-Similar to queue but it has logarithmic insertion and extraction, because of it stores objects in an orderly fashion, it allows to get the largest object for the constant time.
+_Similar to queue but it has logarithmic insertion and extraction, because of it stores objects in an orderly fashion, it allows to get the largest object for the constant time_
 
 ## Forward_List
 ### Idea
