@@ -3,7 +3,7 @@
 - [Vector](https://github.com/byteihq/cheat-sheets#vector)
   - [Implementation](https://github.com/byteihq/cheat-sheets#implementation)
 - [Deque](https://github.com/byteihq/cheat-sheets#deque)
-  - [Idea](https://github.com/byteihq/cheat-sheets#idea) 
+  - [Idea](https://github.com/byteihq/cheat-sheets#idea)
 - [Forward_List](https://github.com/byteihq/cheat-sheets#forward_list)
   - [Idea](https://github.com/byteihq/cheat-sheets#idea-1)
   - [Notes](https://github.com/byteihq/cheat-sheets#notes)
@@ -33,6 +33,36 @@
 
 ## Deque
 ### [Idea](https://github.com/byteihq/Deque)
+
+## Stack
+### Idea
+```cpp
+template<typename T>
+class Stack {
+private:
+    struct Node {
+        T value_;
+        Node* next_;
+    };
+    Node* head_;
+};
+```
+```cpp
+template<typename T>
+class Stack {
+private:
+    T* data;
+    size_t head;
+};
+```
+### Notes
+Stack is a LIFO data structure. It has methods push (by default it calls deque.push_back()) and pop (by default it calls deque.pop_back())
+
+## Queue
+Similar to stack, but it's a FIFO data structure. Also has methods push (by default it calls deque.push_back()) and pop (by default it calls deque.pop_front())
+
+## Priority Queue
+Similar to queue but it has logarithmic insertion and extraction, because of it stores objects in an orderly fashion, it allows to get the largest object for the constant time.
 
 ## Forward_List
 ### Idea
