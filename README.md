@@ -1,14 +1,22 @@
 ## Content
 - [Container's operations complexity](https://github.com/byteihq/cheat-sheets#containers-operations-complexity)
-- [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
-  - [Install](https://github.com/byteihq/cheat-sheets#install)
+- [Vector](https://github.com/byteihq/cheat-sheets#vector)
+  - [Implementation](https://github.com/byteihq/cheat-sheets#implementation)
+- [Deque](https://github.com/byteihq/cheat-sheets#deque)
+  - [Idea](https://github.com/byteihq/cheat-sheets#idea) 
 - [Forward_List](https://github.com/byteihq/cheat-sheets#forward_list)
+  - [Idea](https://github.com/byteihq/cheat-sheets#idea-1)
+  - [Notes](https://github.com/byteihq/cheat-sheets#notes)
 - [List](https://github.com/byteihq/cheat-sheets#list)
+  - [Idea](https://github.com/byteihq/cheat-sheets#idea-2)
+  - [Notes](https://github.com/byteihq/cheat-sheets#notes-1) 
 - [GCC Compile Flags](https://github.com/byteihq/cheat-sheets#gcc-compile-flags)
 - [Pointers](https://github.com/byteihq/cheat-sheets#pointers)
   - [Pointers with const modidfcator](https://github.com/byteihq/cheat-sheets#pointers-with-const-modidfcator)
   - [Pointers arithmetic](https://github.com/byteihq/cheat-sheets#pointers-arithmetic)
   - [Smart Pointers](https://github.com/byteihq/cheat-sheets#smart-pointers)
+- [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
+  - [Install](https://github.com/byteihq/cheat-sheets#install)
 
 ## Container's operations complexity
 
@@ -19,12 +27,6 @@
 |[list](https://en.cppreference.com/w/cpp/container/list) / [forward_list](https://en.cppreference.com/w/cpp/container/forward_list)| none | O(1) | O(1) | O(1) | none |
 |[set](https://en.cppreference.com/w/cpp/container/set) / [map](https://en.cppreference.com/w/cpp/container/map)| O(logN) |none|O(logN)|O(logN)|O(logN)|
 |[unordered_set](https://en.cppreference.com/w/cpp/container/unordered_set) / [unordered_map](https://en.cppreference.com/w/cpp/container/unordered_map)| Q(1) mean | none | O(1) mean| O(1) mean| O(1) mean|
-
-## Hunter
-### Install
-```sh
-wget https://raw.githubusercontent.com/cpp-pm/gate/master/cmake/HunterGate.cmake -O cmake/HunterGate.cmake
-```
 
 ## Vector
 ### [Implementation](https://github.com/byteihq/Vector)
@@ -129,3 +131,9 @@ p64 += 10; //shift by 10 * sizeof(int64_t) bytes = 80 bytes;
 2. [Weak Ptr](https://en.cppreference.com/w/cpp/memory/weak_ptr) - **std::weak_ptr models temporary ownership: when an object needs to be accessed only if it exists, and it may be deleted at any time by someone else, std::weak_ptr is used to track the object, and it is converted to std::shared_ptr to assume temporary ownership. It has _expired_ method to check whether the referenced object was already deleted**
 3. [Unique Ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr) - **uncopyable, movable**
 4. [Shared Ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr) - **copyable, movable (also has atomic reference counter)**
+
+## Hunter
+### Install
+```sh
+wget https://raw.githubusercontent.com/cpp-pm/gate/master/cmake/HunterGate.cmake -O cmake/HunterGate.cmake
+```
