@@ -23,7 +23,22 @@
 - [Diamond inheritance problem](https://github.com/byteihq/cheat-sheets#diamond-inheritance-problem)
   - [Case](https://github.com/byteihq/cheat-sheets#case)
   - [Possible solution](https://github.com/byteihq/cheat-sheets#possible-solution)
-  - [Notes](https://github.com/byteihq/cheat-sheets#notes-3) 
+  - [Notes](https://github.com/byteihq/cheat-sheets#notes-3)
+ - [Polymorphism](https://github.com/byteihq/cheat-sheets/blob/main/README.md#polymorphism)
+  - [Static](https://github.com/byteihq/cheat-sheets/blob/main/README.md#static)
+  - [Dynamic](https://github.com/byteihq/cheat-sheets/blob/main/README.md#dynamic)
+    - [Case 1](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-1)
+    - [Case 2](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-2)
+    - [Case 3](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-3)
+    - [Case 4](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-4)
+    - [Case 5](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-5)
+    - [Case 6](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-6)
+  - [Key word override](https://github.com/byteihq/cheat-sheets/blob/main/README.md#key-word-override)
+    - [Case 1](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-1-1)
+    - [Case 2](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-2-1)
+  - [Key word final](https://github.com/byteihq/cheat-sheets/blob/main/README.md#key-word-final)
+    - [Case 1](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-1-2)
+    - [Case 2](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-2-2)    
 - [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
   - [Install](https://github.com/byteihq/cheat-sheets#install)
 
@@ -314,6 +329,7 @@ int main() {
 }
 ```
 _Output - ABA_
+
 _Which method should be called is only decided at compile time_
 ### Dynamic
 _Which method should be called is decided at runtime_
@@ -351,6 +367,7 @@ int main() {
 }
 ```
 _Output - B_
+
 _The same output will be if we'll write **virtual** before f() in B_
 #### Case 3
 ```cpp
@@ -420,9 +437,9 @@ int main() {
 }
 ```
 _Output - B_
-#### Key word _override_
+### Key word _override_
 _Indicates that the function has been overridden, required by code-style_
-##### Case 1
+#### Case 1
 ```cpp
 struct A {
     virtual void f() const { std::cout << "A"; }
@@ -439,7 +456,7 @@ int main() {
 }
 ```
 _Output - B_
-##### Case 2
+#### Case 2
 ```cpp
 struct A {
     virtual void f() const { std::cout << "A"; }
@@ -456,9 +473,9 @@ int main() {
 }
 ```
 _Output - CE_
-#### Key word _final_
+### Key word _final_
 _Disallows further overrides_
-##### Case 1
+#### Case 1
 ```cpp
 struct A {
     virtual void f() const { std::cout << "A"; }
@@ -475,7 +492,7 @@ int main() {
 }
 ```
 _Output - B_
-##### Case 2
+#### Case 2
 ```cpp
 struct A {
     virtual void f() const final { std::cout << "A"; }
