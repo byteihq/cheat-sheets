@@ -244,6 +244,7 @@ int main() {
 }
 ```
 _Location of objects in memory - ( a )( b )( c_ptr )( c )( d )( a )_
+
 2. Virtual inherit in the also wont' solve the problem.
 ```cpp
 struct A {
@@ -268,6 +269,7 @@ int main() {
 }
 ```
 _Location of objects in memory - ( d_ptr )->( b_ptr && c_ptr )( d )( a )( b )( a )( c )_
+
 3. Kill this guy
 ```cpp
 struct A {
