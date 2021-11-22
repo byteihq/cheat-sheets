@@ -20,6 +20,10 @@
   - [Pointers with const modidfcator](https://github.com/byteihq/cheat-sheets#pointers-with-const-modidfcator)
   - [Pointers arithmetic](https://github.com/byteihq/cheat-sheets#pointers-arithmetic)
   - [Smart Pointers](https://github.com/byteihq/cheat-sheets#smart-pointers)
+- [Diamond inheritance problem](https://github.com/byteihq/cheat-sheets#diamond-inheritance-problem)
+  - [Case](https://github.com/byteihq/cheat-sheets#case)
+  - [Possible solution](https://github.com/byteihq/cheat-sheets#possible-solution)
+  - [Notes](https://github.com/byteihq/cheat-sheets#notes-3) 
 - [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
   - [Install](https://github.com/byteihq/cheat-sheets#install)
 
@@ -245,7 +249,7 @@ int main() {
 ```
 _Location of objects in memory - ( a )( b )( c_ptr )( c )( d )( a )_
 
-2. Virtual inherit in the also wont' solve the problem.
+2. Virtual inherit in the also won't solve the problem.
 ```cpp
 struct A {
     int a;
