@@ -192,7 +192,7 @@ int main() {
 }
 ```
 _Result - CE_
-_Location of objects in memory - ( a )( b )( a )( c )( d )
+_Location of objects in memory - ( a )( b )( a )( c )( d )_
 
 ## Hunter
 ### Install
