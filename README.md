@@ -294,6 +294,204 @@ int main() {
 }
 ```
 _Location of objects in memory - ( a )( b )( a )( d )_
+## Polymorphism
+### Static
+```cpp
+struct A {
+    void f() { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() { std::cout << "B"; }
+};
+
+int main() {
+    A a;
+    a.f();
+    B b;
+    b.f();
+    b.A::f();
+}
+```
+_Output - ABA_
+_Which method should be called is only decided at compile time_
+### Dynamic
+_Which method should be called is decided at runtime_
+#### Case 1
+```cpp
+struct A {
+    void f() { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    A& ar = b;
+    ar.f();
+}
+```
+_Output - A_
+#### Case 2
+```cpp
+struct A {
+    virtual void f() { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    A& ar = b;
+    ar.f();
+}
+```
+_Output - B_
+_The same output will be if we'll write **virtual** before f() in B_
+#### Case 3
+```cpp
+struct A {
+    virtual void f() { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() const { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    A& ar = b;
+    ar.f();
+}
+```
+_Output - A_
+#### Case 4
+```cpp
+struct A {
+    virtual void f() { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    const A& ar = b;
+    ar.f();
+}
+```
+_Output - CE_
+#### Case 5
+```cpp
+struct A {
+    virtual void f() const { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    const A& ar = b;
+    ar.f();
+}
+```
+_Output - A_
+#### Case 6
+```cpp
+struct A {
+    virtual void f() const { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() const { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    const A& ar = b;
+    ar.f();
+}
+```
+_Output - B_
+#### Key word _override_
+_Indicates that the function has been overridden, required by code-style_
+##### Case 1
+```cpp
+struct A {
+    virtual void f() const { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() const override { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    const A& ar = b;
+    ar.f();
+}
+```
+_Output - B_
+##### Case 2
+```cpp
+struct A {
+    virtual void f() const { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() override { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    const A& ar = b;
+    ar.f();
+}
+```
+_Output - CE_
+#### Key word _final_
+_Disallows further overrides_
+##### Case 1
+```cpp
+struct A {
+    virtual void f() const { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() const override final { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    const A& ar = b;
+    ar.f();
+}
+```
+_Output - B_
+##### Case 2
+```cpp
+struct A {
+    virtual void f() const final { std::cout << "A"; }
+};
+
+struct B : public A {
+    void f() const override { std::cout << "B"; }
+};
+
+int main() {
+    B b;
+    const A& ar = b;
+    ar.f();
+}
+```
+_Output - CE_
 ## Hunter
 ### Install
 ```sh
