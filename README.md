@@ -167,6 +167,33 @@ p64 += 10; //shift by 10 * sizeof(int64_t) bytes = 80 bytes;
 3. [Unique Ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr) - **uncopyable, movable**
 4. [Shared Ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr) - **copyable, movable (also has atomic reference counter)**
 
+## Diamond inheritance problem
+### Case 1
+```cpp
+struct A {
+    int a;
+};
+
+struct B : public A {
+    int b;
+};
+
+struct C : public A {
+    int c;
+};
+
+struct D : public B, public C {
+    int d;
+};
+
+int main() {
+    D d;
+    d.a;
+}
+```
+_Result - CE_
+_Location of objects in memory - ( a )( b )( a )( c )( d )
+
 ## Hunter
 ### Install
 ```sh
