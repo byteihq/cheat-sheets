@@ -218,6 +218,76 @@ int main() {
 }
 ```
 _Location of objects in memory - ( b_ptr )( b )( c_ptr )( c )( d )( a )_
+
+### Notes
+1. If we'll inherit virtually only one time, it won't solve this problem
+```cpp
+struct A {
+    int a;
+};
+
+struct B : public A {
+    int b;
+};
+
+struct C : public virtual A {
+    int c;
+};
+
+struct D : public B, public C {
+    int d;
+};
+
+int main() {
+    D d;
+    d.a;
+}
+```
+_Location of objects in memory - ( a )( b )( c_ptr )( c )( d )( a )_
+2. Virtual inherit in the also wont' solve the problem.
+```cpp
+struct A {
+    int a;
+};
+
+struct B : public A {
+    int b;
+};
+
+struct C : public A {
+    int c;
+};
+
+struct D : public virtual B, public virtual C {
+    int d;
+};
+
+int main() {
+    D d;
+    d.a;
+}
+```
+_Location of objects in memory - ( d_ptr )->( b_ptr && c_ptr )( d )( a )( b )( a )( c )_
+3. Kill this guy
+```cpp
+struct A {
+    int a;
+};
+
+struct B : public A {
+    int b;
+};
+
+struct D : public B, public A {
+    int d;
+};
+
+int main() {
+    D d;
+    d.a;
+}
+```
+_Location of objects in memory - ( a )( b )( a )( d )_
 ## Hunter
 ### Install
 ```sh
