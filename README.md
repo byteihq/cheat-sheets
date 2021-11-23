@@ -121,6 +121,9 @@ private:
 ### Notes
 [Method splice has a linear complexity when we want to splice a part of another list, because we need to recalculate a new size](https://en.cppreference.com/w/cpp/container/list/splice)
 
+## HashTable
+### [Idea](https://github.com/byteihq/HashTable/blob/main/README.md)
+
 ## GCC Compile Flags
 1. **-Wpedantic (-pedantic)** - checks that the code complies with the ISO C ++ standard, reports on the use of prohibited extensions, on the presence of extra semicolons, lack of line breaks at the end of the file, and other useful things
 2. **-Werror** - warning = error
