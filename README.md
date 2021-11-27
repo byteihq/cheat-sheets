@@ -514,6 +514,58 @@ int main() {
 }
 ```
 _Output - CE_
+
+## Design Patterns
+### Factory Method
+#### Example
+```cpp
+class Product {
+private:
+    size_t cost_;
+    size_t weight_;
+public:
+    virtual ~Product() {}
+
+    virtual Product* create() = 0;
+
+    size_t cost() const { return cost_; }
+    
+    size_t weight() const { return weight_; }
+};
+
+class Bread : public Product {
+public:
+    Product* create() override {
+        return new Bread;
+    }
+};
+
+class Milk : public Product {
+public:
+    Product* create() override {
+        return new Milk;
+    }
+};
+```
+#### Notes
+A factory method defines a method that should be used instead of calling a **new** one to create product objects. Subclasses can override this method to change the type of products they create.
+### Singleton
+#### Example (by Scott Meyers)
+```cpp
+class Singleton {
+private:
+  Singleton() {}
+  Singleton(const Singleton&) = delete;
+  Singleton& operator=(Singleton&) = delete;
+public:
+  static Singleton& getInstance() {
+    static Singleton instance;
+    return instance;
+  }
+};
+```
+#### Notes
+It's very simple to implement a single clumsy Singleton - you just need to hide the constructor and provide a static creating method. **The same class behaves incorrectly in a multithreaded environment**. Multiple threads can simultaneously call the Singleton's getter method and create multiple instances of the object at once.
 ## Hunter
 ### Install
 ```sh
