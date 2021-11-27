@@ -566,6 +566,107 @@ public:
 ```
 #### Notes
 It's very simple to implement a single clumsy Singleton - you just need to hide the constructor and provide a static creating method. **The same class behaves incorrectly in a multithreaded environment**. Multiple threads can simultaneously call the Singleton's getter method and create multiple instances of the object at once.
+### Observer
+#### Example
+```cpp
+class Handler {
+public:
+    class HandlerObserver {
+    public:
+        virtual void Update() const = 0;
+    };
+
+    void AddObserver(const HandlerObserver &observer);
+
+    void DeleteObserver(const HandlerObserver &observer);
+
+    void DoSmth();
+
+private:
+    void NotifyAll();
+
+    std::vector<const HandlerObserver *> observers_;
+};
+
+void Handler::AddObserver(const HandlerObserver &observer) {
+    observers_.push_back(&observer);
+}
+
+void Handler::DeleteObserver(const HandlerObserver &observer) {
+    auto it = std::remove(observers_.begin(), observers_.end(), &observer);
+    observers_.erase(it, observers_.end());
+}
+
+void Handler::DoSmth() {
+    // some code
+    NotifyAll();
+    // other code
+}
+
+void Handler::NotifyAll() {
+    for (const auto &observer: observers_) {
+        observer->Update();
+    }
+}
+
+class Observer : public Handler::HandlerObserver {
+public:
+    void Update() const override;
+};
+
+void Observer::Update() const {
+    // notification
+}
+```
+#### Notes
+Observer is a behavioral design pattern that creates a subscription mechanism that allows one object to watch and respond to events occurring in other objects.
+### Adapter
+#### Example
+```cpp
+class English {
+public:
+    virtual std::string sayHello() const {
+        return "Hello";
+    }
+};
+
+class Spanish {
+public:
+    std::string sayHello() const {
+        return "Hola";
+    }
+};
+
+class Adaptor : public English {
+private:
+    Spanish *spanish_;
+
+    std::string translateToEnglish(const std::string& msg) {
+        // translation
+        return translatedMsg;
+    }
+public:
+    Adaptor(Spanish *spanish) : spanish_(spanish) {}
+
+    std::string sayHello() const override {
+        auto spanishHello = spanish_->sayHello();
+        return translateToEnglish(spanishHello);
+    }
+};
+
+void EnglishSpeakingPerson(English* eng) {
+    // some code
+}
+
+int main() {
+    Spanish spanish;
+    Adaptor adaptor(&spanish);
+    EnglishSpeakingPerson(&adaptor);
+    return 0;
+}
+```
+#### Notes
+The adapter acts as a layer between two objects, converting the calls of one into calls that are understandable to the other.
 ## Hunter
 ### Install
 ```sh
