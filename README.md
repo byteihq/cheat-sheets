@@ -481,7 +481,7 @@ int main() {
 _Output - B_
 
 Encapsulation left the chat
-![](https://www.google.com/url?sa=i&url=https%3A%2F%2Fvk.com%2Fwall-175191950_713901&psig=AOvVaw3w_v_PxGUlNAohXZB2LqIu&ust=1638293352054000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCLC82byMvvQCFQAAAAAdAAAAABAD)
+![](https://sun9-61.userapi.com/impg/AQ9Z2xGxRNt8PNujNTxYU_kFFmfzwVWzF3NxLg/M7gDMXMygqc.jpg?size=510x587&quality=96&sign=9810b2a2294fa9df41d4948adcc86f89&type=album)
 ### Key word _override_
 _Indicates that the function has been overridden, required by code-style_
 #### Case 1
