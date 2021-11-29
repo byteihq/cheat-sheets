@@ -35,6 +35,7 @@
       - [Case 4](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-4)
       - [Case 5](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-5)
       - [Case 6](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-6)
+      - [Shoot yourself in the leg](https://github.com/byteihq/cheat-sheets/blob/main/README.md#shoot-yourself-in-the-leg)
     + [Key word override](https://github.com/byteihq/cheat-sheets/blob/main/README.md#key-word-override)
       - [Case 1](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-1-1)
       - [Case 2](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-2-1)
