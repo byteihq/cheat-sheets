@@ -42,6 +42,8 @@
     + [Key word final](https://github.com/byteihq/cheat-sheets/blob/main/README.md#key-word-final)
       - [Case 1](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-1-2)
       - [Case 2](https://github.com/byteihq/cheat-sheets/blob/main/README.md#case-2-2)
+    + [Vtables](https://github.com/byteihq/cheat-sheets/blob/main/README.md#vtables)
+      - [Example](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example) 
 * [Design Patterns](https://github.com/byteihq/cheat-sheets/blob/main/README.md#design-patterns)
   + [Factory Method](https://github.com/byteihq/cheat-sheets/blob/main/README.md#factory-method)
     - [Example](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example)
@@ -579,6 +581,7 @@ int main() {
 }
 ```
 _Output - 1 4 4 16_
+
 **A4 - ( v_ptr ) -> ( &f() )( a ). 8 + 4 = 12 = 16 (due to alignment)**
 ## Design Patterns
 ### Factory Method
