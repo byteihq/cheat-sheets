@@ -480,7 +480,6 @@ int main() {
 ```
 _Output - B_
 
-Encapsulation left the chat
 ![](https://sun9-61.userapi.com/impg/AQ9Z2xGxRNt8PNujNTxYU_kFFmfzwVWzF3NxLg/M7gDMXMygqc.jpg?size=510x587&quality=96&sign=9810b2a2294fa9df41d4948adcc86f89&type=album)
 ### Key word _override_
 _Indicates that the function has been overridden, required by code-style_
