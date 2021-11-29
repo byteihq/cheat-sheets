@@ -455,6 +455,33 @@ int main() {
 }
 ```
 _Output - B_
+#### Shoot yourself in the leg
+```cpp
+class A {
+public:
+    virtual void f() {
+        std::cout << "A";
+    }
+};
+
+class B : public A{
+private:
+    void f() override {
+        std::cout << "B";
+    }
+};
+
+int main() {
+    A* a = new B();
+    a->f();
+    delete a;
+    return 0;
+}
+```
+_Output - B_
+
+Encapsulation left the chat
+![](https://www.google.com/url?sa=i&url=https%3A%2F%2Fvk.com%2Fwall-175191950_713901&psig=AOvVaw3w_v_PxGUlNAohXZB2LqIu&ust=1638293352054000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCLC82byMvvQCFQAAAAAdAAAAABAD)
 ### Key word _override_
 _Indicates that the function has been overridden, required by code-style_
 #### Case 1
