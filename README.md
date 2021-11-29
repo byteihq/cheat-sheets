@@ -582,7 +582,7 @@ int main() {
 ```
 _Output - 1 4 4 16_
 
-**A4 - ( v_ptr ) -> ( &f() )( a ). 8 + 4 = 12 = 16 (due to alignment)**
+**A4 - ( v_ptr ) -> ( typeinfo_ptr [RTTI](https://ru.wikipedia.org/wiki/%D0%94%D0%B8%D0%BD%D0%B0%D0%BC%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D0%B8%D0%B4%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F_%D1%82%D0%B8%D0%BF%D0%B0_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85) )( &f() ) ( a ). 8 + 4 = 12 = 16 (due to alignment)**
 ## Design Patterns
 ### Factory Method
 #### Example
