@@ -554,7 +554,32 @@ int main() {
 }
 ```
 _Output - CE_
+### Vtables
+#### Example
+```cpp
+struct A1 {};
 
+struct A2 {
+    int a;
+};
+
+struct A3 {
+    int a;
+    void f() {}
+};
+
+struct A4 {
+    int a;
+    virtual void f() {}
+};
+
+int main() {
+    std::cout << sizeof(A1) << ' ' << sizeof(A2) << ' ' << sizeof(A3) << ' ' << sizeof(A4);
+    return 0;
+}
+```
+_Output - 1 4 4 16_
+**A4 - ( v_ptr ) -> ( &f() )( a ). 8 + 4 = 12 = 16 (due to alignment)**
 ## Design Patterns
 ### Factory Method
 #### Example
