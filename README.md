@@ -781,6 +781,7 @@ In the figure below, calling async creates a new stack frame and switches thread
 
 ![](https://tproger.ru/s3/uploads/2018/12/image1-3.png)
 
+![](https://i.ytimg.com/vi/BwwbhINcBww/maxresdefault.jpg)
 ## Hunter
 ### Install
 ```sh
