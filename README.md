@@ -745,3 +745,6 @@ A thread pool is a set of a fixed number of threads that are created when the ap
 ```sh
 wget https://raw.githubusercontent.com/cpp-pm/gate/master/cmake/HunterGate.cmake -O cmake/HunterGate.cmake
 ```
+## Sources
+1. [A.A. Borodin](https://github.com/drewxa)'s lectures
+2. [Google](www.google.com)
