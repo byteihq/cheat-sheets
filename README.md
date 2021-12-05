@@ -744,6 +744,43 @@ The adapter acts as a layer between two objects, converting the calls of one int
 ### [Implementation](https://github.com/progschj/ThreadPool)
 ### Notes
 A thread pool is a set of a fixed number of threads that are created when the application starts. Threads then sit and wait for requests coming to them, usually through a semaphore-driven queue. When a request is made and at least one thread is waiting, the thread wakes up, services the request, and returns to waiting on the semaphore. If no threads are available, requests are queued until one of them is available. Thread pools are generally a more efficient way to manage resources than just starting a new thread for each request. However, some architectures allow new threads to be created and added to the pool as the application runs, depending on the load on the request.
+## Async Programming
+Asynchronous programming is a form of parallel programming that allows a unit of work to run separately from the primary application thread. When the work is complete, it notifies the main thread (as well as whether the work was completed or failed).
+### Example
+```cpp
+HandleConnection::pointer connection = HandleConnection::create(*ioService_);
+acceptor_.async_accept(*connection->getSocket(),
+                       boost::bind(&Server::handleAccept, this, connection,
+                                   boost::asio::placeholders::error));
+```
+### Coroutines
+Essentially, coroutines are functions that have multiple entry and exit points.
+#### Python Example
+```python
+def async_factorial():
+    result = 1
+    while True:
+        yield result
+        result *= i
+
+fac = async_factorial()
+
+for i in range(42):
+    print(next(fac))
+```
+The program will print the entire sequence of factorial numbers numbered from 0 to 41.
+The `async_factorial()` function will return a generator object that can be passed to the `next()` function, and it will continue executing the coroutine until the next yield statement while maintaining the state of all local variables of the function. The `next()` function returns what is passed by the yield statement inside the coroutine. Thus, the `async_factorial()` function in theory has multiple entry and exit points.
+#### Stackful vs Stackless
+Depending on the use of the stack, coroutines are divided into stackful, where each coroutine has its own stack, and stackless, where all local variables of the function are stored in a special object.
+
+Since we can put the `yield statement` anywhere in coroutines, we need to save the entire function context somewhere, which includes the frame on the stack (local variables) and other meta information. This can be done, for example, by completely replacing the stack, as is done in stackful coroutines.
+
+In the figure below, calling async creates a new stack frame and switches thread execution to it. This is practically a new thread, only it will be executed asynchronously with the main one.
+
+`yield`, in turn, returns back the previous stack frame for execution, keeping a reference to the end of the current one on the previous stack.
+
+![](https://tproger.ru/s3/uploads/2018/12/image1-3.png)
+
 ## Hunter
 ### Install
 ```sh
