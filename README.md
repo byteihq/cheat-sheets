@@ -57,6 +57,10 @@
   + [Adapter](https://github.com/byteihq/cheat-sheets/blob/main/README.md#adapter)
     - [Example](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-2)
     - [Notes](https://github.com/byteihq/cheat-sheets/blob/main/README.md#notes-7)
+* [ThreadPool](https://github.com/byteihq/cheat-sheets#threadpool)
+  + [Implementation](https://github.com/byteihq/cheat-sheets#implementation-1)
+  + [Notes](https://github.com/byteihq/cheat-sheets#notes-8)
+* [Sources](https://github.com/byteihq/cheat-sheets#sources) 
 * [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
     + [Install](https://github.com/byteihq/cheat-sheets#install)
 
