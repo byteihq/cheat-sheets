@@ -781,6 +781,19 @@ In the figure below, calling async creates a new stack frame and switches thread
 
 ![](https://tproger.ru/s3/uploads/2018/12/image1-3.png)
 
+#### C++20 Coroutines
+1. `co_await` A unary operator that allows, in general, to suspend the execution of a coroutine and transfer control to the caller until the calculations represented by the operand are completed;
+2. `co_yield` A unary operator, a special case of the co_await operator, which allows you to suspend the execution of a coroutine and transfer control and the value of the operand to the caller;
+3. `co_return` The statement terminates the coroutine by returning a value; after the call, the coroutine will no longer be able to resume its execution.
+##### Articles
+1. https://habr.com/ru/post/519464/
+More code
+2. https://blog.feabhas.com/2021/09/c20-coroutines/
+3. https://www.scs.stanford.edu/~dm/blog/c++-coroutines.html
+##### Implementations
+1. https://github.com/lewissbaker/cppcoro
+2. https://github.com/David-Haim/concurrencpp/
+Waiting for high-level coroutines in c++23...
 ![](https://sun9-9.userapi.com/impg/08LVvGoL_V4aiPWkrt4VVAFP7CCNwWyTaJSzbA/o31IioI3T64.jpg?size=622x499&quality=96&sign=5dd253a7f56608a51f724597255c82cc&type=album)
 ## Hunter
 ### Install
