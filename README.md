@@ -60,6 +60,12 @@
 * [ThreadPool](https://github.com/byteihq/cheat-sheets#threadpool)
   + [Implementation](https://github.com/byteihq/cheat-sheets#implementation-1)
   + [Notes](https://github.com/byteihq/cheat-sheets#notes-8)
+* [Async Programming](https://github.com/byteihq/cheat-sheets/blob/main/README.md#async-programming)
+  + [Example](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-4)
+  + [Coroutines](https://github.com/byteihq/cheat-sheets/blob/main/README.md#coroutines)
+    - [Python](https://github.com/byteihq/cheat-sheets/blob/main/README.md#python-example)
+    - [C++20](https://github.com/byteihq/cheat-sheets/blob/main/README.md#c20-coroutines)
+    - [Stackful vs Stackless](https://github.com/byteihq/cheat-sheets/blob/main/README.md#stackful-vs-stackless) 
 * [Sources](https://github.com/byteihq/cheat-sheets#sources) 
 * [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
     + [Install](https://github.com/byteihq/cheat-sheets#install)
@@ -770,6 +776,22 @@ for i in range(42):
 ```
 The program will print the entire sequence of factorial numbers numbered from 0 to 41.
 The `async_factorial()` function will return a generator object that can be passed to the `next()` function, and it will continue executing the coroutine until the next yield statement while maintaining the state of all local variables of the function. The `next()` function returns what is passed by the yield statement inside the coroutine. Thus, the `async_factorial()` function in theory has multiple entry and exit points.
+#### C++20 Coroutines
+1. `co_await` A unary operator that allows, in general, to suspend the execution of a coroutine and transfer control to the caller until the calculations represented by the operand are completed;
+2. `co_yield` A unary operator, a special case of the co_await operator, which allows you to suspend the execution of a coroutine and transfer control and the value of the operand to the caller;
+3. `co_return` The statement terminates the coroutine by returning a value; after the call, the coroutine will no longer be able to resume its execution.
+##### Articles
+1. https://habr.com/ru/post/519464/
+
+More code
+
+2. https://blog.feabhas.com/2021/09/c20-coroutines/
+3. https://www.scs.stanford.edu/~dm/blog/c++-coroutines.html
+##### Implementations
+1. https://github.com/lewissbaker/cppcoro
+2. https://github.com/David-Haim/concurrencpp/
+
+Waiting for high-level coroutines in c++23...
 #### Stackful vs Stackless
 Depending on the use of the stack, coroutines are divided into stackful, where each coroutine has its own stack, and stackless, where all local variables of the function are stored in a special object.
 
@@ -781,19 +803,6 @@ In the figure below, calling async creates a new stack frame and switches thread
 
 ![](https://tproger.ru/s3/uploads/2018/12/image1-3.png)
 
-#### C++20 Coroutines
-1. `co_await` A unary operator that allows, in general, to suspend the execution of a coroutine and transfer control to the caller until the calculations represented by the operand are completed;
-2. `co_yield` A unary operator, a special case of the co_await operator, which allows you to suspend the execution of a coroutine and transfer control and the value of the operand to the caller;
-3. `co_return` The statement terminates the coroutine by returning a value; after the call, the coroutine will no longer be able to resume its execution.
-##### Articles
-1. https://habr.com/ru/post/519464/
-More code
-2. https://blog.feabhas.com/2021/09/c20-coroutines/
-3. https://www.scs.stanford.edu/~dm/blog/c++-coroutines.html
-##### Implementations
-1. https://github.com/lewissbaker/cppcoro
-2. https://github.com/David-Haim/concurrencpp/
-Waiting for high-level coroutines in c++23...
 ![](https://sun9-9.userapi.com/impg/08LVvGoL_V4aiPWkrt4VVAFP7CCNwWyTaJSzbA/o31IioI3T64.jpg?size=622x499&quality=96&sign=5dd253a7f56608a51f724597255c82cc&type=album)
 ## Hunter
 ### Install
