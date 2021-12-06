@@ -828,7 +828,7 @@ int main() {
     return 0;
 }
 ```
-Output - who knows...
+_Output - who knows..._
 #### Example 2
 ```cpp
 std::atomic<int> value = 0;
@@ -849,7 +849,7 @@ int main() {
     return 0;
 }
 ```
-Output - 20
+_Output - 20_
 #### Notes
 Atomicity means the indivisibility of an operation. This means that no thread can see the intermediate state of the operation, it is either in progress or not. If you are using [std::atomic<>](https://en.cppreference.com/w/cpp/atomic/atomic) from a non-trivial template, then most likely this will lead to using standard `std::mutex`
 Most common methods:
