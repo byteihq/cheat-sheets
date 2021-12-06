@@ -803,6 +803,57 @@ In the figure below, calling async creates a new stack frame and switches thread
 
 ![](https://tproger.ru/s3/uploads/2018/12/image1-3.png)
 
+### Atomic Operations
+#### Example 1
+```cpp
+int value = 0;
+
+void f() {
+    ++value;
+}
+
+int main() {
+    std::vector<std::thread> threads;
+    for (size_t i = 0; i < 20; ++i) {
+        threads.emplace_back(f);
+    }
+    for (auto&& thread : threads) {
+        thread.join();
+    }
+    std::cout << value;
+    return 0;
+}
+```
+Output - who knows...
+#### Example 2
+```cpp
+std::atomic<int> value = 0;
+
+void f() {
+    ++value;
+}
+
+int main() {
+    std::vector<std::thread> threads;
+    for (size_t i = 0; i < 20; ++i) {
+        threads.emplace_back(f);
+    }
+    for (auto&& thread : threads) {
+        thread.join();
+    }
+    std::cout << value;
+    return 0;
+}
+```
+Output - 20
+#### Notes
+Atomicity means the indivisibility of an operation. This means that no thread can see the intermediate state of the operation, it is either in progress or not. If you are using [std::atomic<>](https://en.cppreference.com/w/cpp/atomic/atomic) from a non-trivial template, then most likely this will lead to using standard `std::mutex`
+Most common methods:
+1. `load()` atomically obtains the value of the atomic object
+2. `store()` atomically replaces the value of the atomic object with a non-atomic argument
+3. `exchange() = store() + load()` atomically replaces the value of the atomic object and obtains the value held previously
+4. `compare_exchange_weak()` atomically compares the value of the atomic object with non-atomic argument and performs atomic exchange if equal or atomic load if not
+The difference between `compare_exchange_weak` and `compare_exchange_strong` is that `compare_exchange_weak` on some platforms may fail falsely (i.e. return false and fail to exchange even if the values are equal). `compare_exchange_strong` calls `compare_exchange_weak` in a loop. When `compare_exchange_strong` is called in a loop it makes sense to use `compare_exchange_weak` to avoid nested loops. A very important point is that all operations on atomic types in C ++ 0x are sequentially consistent by default, i.e. all operations with atomic types are performed and observed by other processors in the order in which they were written.
 ![](https://sun9-9.userapi.com/impg/08LVvGoL_V4aiPWkrt4VVAFP7CCNwWyTaJSzbA/o31IioI3T64.jpg?size=622x499&quality=96&sign=5dd253a7f56608a51f724597255c82cc&type=album)
 ## Hunter
 ### Install
