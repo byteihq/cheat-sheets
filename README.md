@@ -65,7 +65,11 @@
   + [Coroutines](https://github.com/byteihq/cheat-sheets/blob/main/README.md#coroutines)
     - [Python](https://github.com/byteihq/cheat-sheets/blob/main/README.md#python-example)
     - [C++20](https://github.com/byteihq/cheat-sheets/blob/main/README.md#c20-coroutines)
-    - [Stackful vs Stackless](https://github.com/byteihq/cheat-sheets/blob/main/README.md#stackful-vs-stackless) 
+    - [Stackful vs Stackless](https://github.com/byteihq/cheat-sheets/blob/main/README.md#stackful-vs-stackless)
+  + [Atomic Operations](https://github.com/byteihq/cheat-sheets/blob/main/README.md#atomic-operations)
+    - [Example 1](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-1-1)
+    - [Example 2](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-2-1)
+    - [Notes](https://github.com/byteihq/cheat-sheets/blob/main/README.md#notes-9) 
 * [Sources](https://github.com/byteihq/cheat-sheets#sources) 
 * [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
     + [Install](https://github.com/byteihq/cheat-sheets#install)
@@ -853,6 +857,7 @@ Most common methods:
 2. `store()` atomically replaces the value of the atomic object with a non-atomic argument
 3. `exchange() = store() + load()` atomically replaces the value of the atomic object and obtains the value held previously
 4. `compare_exchange_weak()` atomically compares the value of the atomic object with non-atomic argument and performs atomic exchange if equal or atomic load if not
+
 The difference between `compare_exchange_weak` and `compare_exchange_strong` is that `compare_exchange_weak` on some platforms may fail falsely (i.e. return false and fail to exchange even if the values are equal). `compare_exchange_strong` calls `compare_exchange_weak` in a loop. When `compare_exchange_strong` is called in a loop it makes sense to use `compare_exchange_weak` to avoid nested loops. A very important point is that all operations on atomic types in C ++ 0x are sequentially consistent by default, i.e. all operations with atomic types are performed and observed by other processors in the order in which they were written.
 ![](https://sun9-9.userapi.com/impg/08LVvGoL_V4aiPWkrt4VVAFP7CCNwWyTaJSzbA/o31IioI3T64.jpg?size=622x499&quality=96&sign=5dd253a7f56608a51f724597255c82cc&type=album)
 ## Hunter
