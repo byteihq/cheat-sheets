@@ -69,10 +69,10 @@
   + [Atomic Operations](https://github.com/byteihq/cheat-sheets/blob/main/README.md#atomic-operations)
     - [Example 1](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-1-1)
     - [Example 2](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-2-1)
-    - [Notes](https://github.com/byteihq/cheat-sheets/blob/main/README.md#notes-9) 
-* [Sources](https://github.com/byteihq/cheat-sheets#sources) 
+    - [Notes](https://github.com/byteihq/cheat-sheets/blob/main/README.md#notes-9)
 * [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
     + [Install](https://github.com/byteihq/cheat-sheets#install)
+* [Sources](https://github.com/byteihq/cheat-sheets#sources)
 
 ## Container's operations complexity
 
