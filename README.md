@@ -859,6 +859,13 @@ Most common methods:
 4. `compare_exchange_weak()` atomically compares the value of the atomic object with non-atomic argument and performs atomic exchange if equal or atomic load if not
 
 The difference between `compare_exchange_weak` and `compare_exchange_strong` is that `compare_exchange_weak` on some platforms may fail falsely (i.e. return false and fail to exchange even if the values are equal). `compare_exchange_strong` calls `compare_exchange_weak` in a loop. When `compare_exchange_strong` is called in a loop it makes sense to use `compare_exchange_weak` to avoid nested loops. A very important point is that all operations on atomic types in C ++ 0x are sequentially consistent by default, i.e. all operations with atomic types are performed and observed by other processors in the order in which they were written.
+### Lock-free (and wait-free) programming
+**Lock-free** - lock-free is the procedure for which the progress of at least one thread performing this procedure is guaranteed. Other threads can wait, but at least one thread must progress.
+
+**Wait-free** - an operation is called wait-free if it completes in a certain number of steps that do not depend on the state and actions of other threads.
+
+#### Lock-free Stack
+
 ![](https://sun9-9.userapi.com/impg/08LVvGoL_V4aiPWkrt4VVAFP7CCNwWyTaJSzbA/o31IioI3T64.jpg?size=622x499&quality=96&sign=5dd253a7f56608a51f724597255c82cc&type=album)
 ## Hunter
 ### Install
