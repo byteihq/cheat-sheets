@@ -966,6 +966,22 @@ public:
 1. http://cppjournal.blogspot.com/2010/11/lock-free-1.html
 2. http://cppjournal.blogspot.com/2010/11/lock-free-2.html
 
+### ABA Problem
+Now, the `ABA` problem is an anomaly where Compare and Swap approach alone fails us.
+Say, for example, that one activity reads some shared memory `(A)`, in preparation for updating it. Then, another activity temporarily modifies that shared memory `(B)` and then restores it `(A)`. Following that, once the first activity performs Compare and Swap, it will appear as if no change has been made, invalidating the integrity of the check.
+While in many scenarios this doesn’t cause a problem, at times, `A` is not as equal to `A` as we might think.
+
+Let’s think about a multithreaded scenario when Thread 1 and Thread 2 are operating on the same bank account.
+When Thread 1 wants to withdraw some money, it reads the actual balance to use that value for comparing the amount in the CAS operation later. However, for some reason, Thread 1 is a bit slow — maybe it’s blocked.
+
+In the meantime, Thread 2 performs two operations on the account using the same mechanism while Thread 1 is suspended. First, it changes the original value, which has already been read by Thread 1, but then, it changes it back to the original value.
+
+Once Thread 1 resumes, it will appear as if nothing has changed, and CAS will succeed:
+
+![](https://www.baeldung.com/wp-content/uploads/sites/4/2020/05/aba_problem-1-1024x499.png)
+
+**Sources**
+1. https://www.baeldung.com/cs/aba-concurrency
 ![](https://sun9-9.userapi.com/impg/08LVvGoL_V4aiPWkrt4VVAFP7CCNwWyTaJSzbA/o31IioI3T64.jpg?size=622x499&quality=96&sign=5dd253a7f56608a51f724597255c82cc&type=album)
 ## Hunter
 ### Install
