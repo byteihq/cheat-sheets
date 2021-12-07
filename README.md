@@ -70,6 +70,8 @@
     - [Example 1](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-1-1)
     - [Example 2](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-2-1)
     - [Notes](https://github.com/byteihq/cheat-sheets/blob/main/README.md#notes-9)
+  + [Lock-free Programming](https://github.com/byteihq/cheat-sheets/blob/main/README.md#lock-free-and-wait-free-programming)
+    - [Lock-free Stack](https://github.com/byteihq/cheat-sheets/blob/main/README.md#lock-free-stack)
 * [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
     + [Install](https://github.com/byteihq/cheat-sheets#install)
 * [Sources](https://github.com/byteihq/cheat-sheets#sources)
