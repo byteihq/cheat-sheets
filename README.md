@@ -865,6 +865,104 @@ The difference between `compare_exchange_weak` and `compare_exchange_strong` is 
 **Wait-free** - an operation is called wait-free if it completes in a certain number of steps that do not depend on the state and actions of other threads.
 
 #### Lock-free Stack
+```cpp
+template<typename T>
+class Stack {
+private:
+    struct Node {
+        std::shared_ptr<T> value_;
+        Node *next_;
+
+        explicit Node(const T &value, Node *next = nullptr) : value_(std::make_shared<T>(value)), next_(next) {}
+    };
+
+    std::atomic<Node *> head_;
+    std::atomic<Node *> need_delete_;
+    std::atomic<size_t> threads_in_pop_;
+
+    void append_list_to_be_deleted(Node *begin, Node *end) {
+        end->next_ =  need_delete_;
+        while (!need_delete_.compare_exchange_weak(end->next_, begin));
+    }
+
+    void append_list_to_be_deleted(Node *begin) {
+        auto end = begin;
+        while (end->next_) {
+            end = end->next_;
+        }
+        append_list_to_be_deleted(begin, end);
+    }
+
+    void delete_nodes(Node *node) {
+        while (node) {
+            auto next = node->next_;
+            delete node;
+            node = next;
+        }
+    }
+
+    void try_delete(Node *node) {
+        if (threads_in_pop_ == 1) {
+            auto nodes_to_be_deleted = need_delete_.exchange(nullptr);
+            if (--threads_in_pop_ == 0) {
+                delete_nodes(nodes_to_be_deleted);
+            } else if (nodes_to_be_deleted) {
+                append_list_to_be_deleted(nodes_to_be_deleted);
+            }
+            delete node;
+        } else {
+            append_list_to_be_deleted(node);
+            --threads_in_pop_;
+        }
+    }
+
+
+public:
+    Stack() : head_(nullptr), need_delete_(nullptr), threads_in_pop_(0) {}
+
+    void push(const T &value) {
+        Node* new_node = new Node(value, head_.load());
+        while (!head_.compare_exchange_weak(new_node->next_, new_node));
+        /*
+         * if (head_ == new_node->next_) {
+         *  head_ = new_node;
+         *  return true;
+         * }
+         * new_node->next_ = head_;
+         * return false;
+        */
+    }
+
+    std::shared_ptr<T> pop() {
+        ++threads_in_pop_;
+        auto old_head = head_.load();
+        while (old_head && !head_.compare_exchange_weak(old_head, old_head->next_));
+        /*
+         * if (head_ == old_head) {
+         *  head_ = old_head->next_;
+         *  return true;
+         * }
+         * old_head = head_;
+         * return false;
+        */
+        std::shared_ptr<T> res;
+        if (old_head) {
+           res.swap(old_head->value_);
+        }
+
+        try_delete(old_head);
+
+        return res;
+    }
+
+    ~Stack() {
+        delete_nodes(head_);
+    }
+};
+```
+**Sources**
+1. http://cppjournal.blogspot.com/2010/11/lock-free-1.html
+2. http://cppjournal.blogspot.com/2010/11/lock-free-2.html
 
 ![](https://sun9-9.userapi.com/impg/08LVvGoL_V4aiPWkrt4VVAFP7CCNwWyTaJSzbA/o31IioI3T64.jpg?size=622x499&quality=96&sign=5dd253a7f56608a51f724597255c82cc&type=album)
 ## Hunter
