@@ -72,6 +72,7 @@
     - [Notes](https://github.com/byteihq/cheat-sheets/blob/main/README.md#notes-9)
   + [Lock-free Programming](https://github.com/byteihq/cheat-sheets/blob/main/README.md#lock-free-and-wait-free-programming)
     - [Lock-free Stack](https://github.com/byteihq/cheat-sheets/blob/main/README.md#lock-free-stack)
+  + [ABA Problem](https://github.com/byteihq/cheat-sheets#aba-problem)
 * [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
     + [Install](https://github.com/byteihq/cheat-sheets#install)
 * [Sources](https://github.com/byteihq/cheat-sheets#sources)
