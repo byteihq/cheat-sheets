@@ -493,7 +493,7 @@ public:
     }
 };
 
-class B : public A{
+class B : public A {
 private:
     void f() override {
         std::cout << "B";
