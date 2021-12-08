@@ -983,7 +983,184 @@ Once Thread 1 resumes, it will appear as if nothing has changed, and CAS will su
 
 **Sources**
 1. https://www.baeldung.com/cs/aba-concurrency
+
 ![](https://sun9-9.userapi.com/impg/08LVvGoL_V4aiPWkrt4VVAFP7CCNwWyTaJSzbA/o31IioI3T64.jpg?size=622x499&quality=96&sign=5dd253a7f56608a51f724597255c82cc&type=album)
+
+## External and Internal Linkage
+A translation unit refers to an implementation (.c/.cpp) file and all header (.h/.hpp) files it includes. If an object or function inside such a translation unit has internal linkage, then that specific symbol is only visible to the linker within that translation unit. If an object or function has external linkage, the linker can also see it when processing other translation units. The static keyword, when used in the global namespace, forces a symbol to have internal linkage. The extern keyword results in a symbol having external linkage.
+
+The compiler defaults the linkage of symbols such that:
+
+1. Non-const global variables have external linkage by default
+2. Const global variables have internal linkage by default
+3. Functions have external linkage by default
+
+### Declaration vs Definition
+Lets quickly discuss the difference between declaring a symbol and defining a symbol: A declaration tells the compiler about the existence of a certain symbol and makes it possible to refer to that symbol everywhere where the explicit memory address or required storage of that symbol is not required. A definition tells the compiler what the body of a function contains or how much memory it must allocate for a variable.
+
+Situations where a declaration is not sufficient to the compiler are, for example, when a data member of a class is of reference or value (as in, neither reference nor pointer) type. At the same time, it is always allowed to have pointers to a declared (but not defined) type, because pointers require fixed memory capacity (e.g. 8 bytes on 64-bit systems) and do not depend on the type pointed to. When you dereference that pointer, the definition does become necessary. Also, for function declarations, all parameters (no matter whether taken by value, reference or pointer) and the return type need only be declared and not defined. Definitions of parameter and return value types only become necessary for the function definition.
+
+#### Example
+```cpp
+// declarations
+int f();
+
+int f();
+
+int f();
+
+int f();
+
+int f();
+
+int f();
+
+// definition
+int f() {
+    std::cout << "I'm f()";
+}
+
+int main() {
+    f();
+    return 0;
+}
+```
+_Output - I'm f()_
+```cpp
+// declarations
+int f();
+
+int f();
+
+int f();
+
+int f();
+
+int f();
+
+int f();
+
+// definitions
+int f() {
+    std::cout << "I'm f()";
+}
+
+int f() {
+    std::cout << "I'm also f()";
+}
+
+int main() {
+    f();
+    return 0;
+}
+```
+_Output - CE (due to [ODR](https://en.cppreference.com/w/cpp/language/definition))_
+```cpp
+class A;
+
+class B {
+private:
+    A* a;
+};
+```
+We don't care about the definition of class A, because pointers have fixed size
+
+### Forward Declaration
+In C++ there exists the concept of forward declaring a symbol. What we mean by this is that we declare the type and name of a symbol so that we can use it where its definition is not required. By doing so, we don’t have to include the full definition of a symbol (usually a header file) when it is not explicitly necessary. This way, we reduce dependency on the file containing the definition. The main advantage of this is that when the file containing the definition changes, the file where we forward declared that symbol does not need to be re-compiled (and therefore, also not all further files including it).
+#### Example
+```cpp
+class A;
+
+void f (A& a) {
+    // some code
+}
+```
+By forward declaring A, the only files requiring recompilation are a.hpp and f.cpp (assuming that’s where f is defined).
+
+### External Linkage
+#### Example 1
+`header.hpp'
+```cpp
+int x = 5;
+```
+`main.cpp'
+```cpp
+extern int x;
+
+int main() {
+    std::cout << x;
+    return 0;
+}
+```
+#### Example 2
+`header.hpp'
+```cpp
+void f() {
+  std::cout << "I'm f()";
+}
+```
+`first.cpp`
+```cpp
+#include <header.hpp>
+
+/*other code*/
+
+```
+`second.cpp`
+```cpp
+#include <header.hpp>
+
+/*other code*/
+
+```
+The linker found two definitions for the same symbol f. Because it had external linkage, f was visible to the linker when processing both first.cpp and second.cpp. Naturally, this violates the One-Definition-Rule, so this causes a linker error.
+### Internal Linkage
+`header.hpp`
+```cpp
+static int x = 10;
+```
+`first.hpp`
+```cpp
+void f1();
+```
+`second.hpp`
+```cpp
+void f2();
+```
+`first.cpp`
+```cpp
+#include <header.hpp>
+
+void f1() {
+  x = 11;
+}
+```
+`second.cpp`
+```cpp
+#include <header.hpp>
+
+void f2() {
+  x = -11;
+}
+```
+`main.cpp`
+```cpp
+#include <header.hpp>
+#include <first.hpp>
+#include <second.hpp>
+
+int main() {
+  f1();
+  f2();
+  std::cout << x;
+  return 0;
+}
+```
+_Output - 10_
+
+**Sources:**
+1. http://www.goldsborough.me/c/c++/linker/2016/03/30/19-34-25-internal_and_external_linkage_in_c++/
+
 ## Hunter
 ### Install
 ```sh
