@@ -73,6 +73,15 @@
   + [Lock-free Programming](https://github.com/byteihq/cheat-sheets/blob/main/README.md#lock-free-and-wait-free-programming)
     - [Lock-free Stack](https://github.com/byteihq/cheat-sheets/blob/main/README.md#lock-free-stack)
   + [ABA Problem](https://github.com/byteihq/cheat-sheets#aba-problem)
+* [Exetrnal and Internal Linkage](https://github.com/byteihq/cheat-sheets/blob/main/README.md#external-and-internal-linkage)
+  + [Declaration vs Definition](https://github.com/byteihq/cheat-sheets/blob/main/README.md#declaration-vs-definition)
+    - [Example](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-5)
+  + [Forward Declaration](https://github.com/byteihq/cheat-sheets/blob/main/README.md#forward-declaration)
+    - [Example](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-6)
+  + [External Linkage](https://github.com/byteihq/cheat-sheets/blob/main/README.md#external-linkage)
+    - [Example 1](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-1-2)
+    - [Example 2](https://github.com/byteihq/cheat-sheets/blob/main/README.md#example-2-2)
+  + [Internal Linkage](https://github.com/byteihq/cheat-sheets/blob/main/README.md#internal-linkage)  
 * [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
     + [Install](https://github.com/byteihq/cheat-sheets#install)
 * [Sources](https://github.com/byteihq/cheat-sheets#sources)
@@ -1079,11 +1088,11 @@ By forward declaring A, the only files requiring recompilation are a.hpp and f.c
 
 ### External Linkage
 #### Example 1
-`header.hpp'
+`header.hpp`
 ```cpp
 int x = 5;
 ```
-`main.cpp'
+`main.cpp`
 ```cpp
 extern int x;
 
@@ -1093,7 +1102,7 @@ int main() {
 }
 ```
 #### Example 2
-`header.hpp'
+`header.hpp`
 ```cpp
 void f() {
   std::cout << "I'm f()";
