@@ -168,6 +168,38 @@ private:
 ## HashTable
 ### [Idea](https://github.com/byteihq/HashTable/blob/main/README.md)
 
+## The building pipeline
+### Preprocessing
+A preprocessor is a macro processor that transforms your program for compilation. At this stage, the work with preprocessor directives takes place. For example, the preprocessor adds headers to the code `#include`, removes comments, replaces macros `#define` with their values, selects the necessary pieces of code in accordance with the `#if`, `#ifdef` and `#ifndef` conditions.
+
+Headers included in the program using the `#include` directive recursively go through the preprocessing stage and are included in the released file. However, each header can be opened several times during preprocessing, therefore, usually, special preprocessing directives are used to prevent circular dependencies.
+
+Let's get the preprocessed code into the output file `main.ii` (files that have passed the preprocessing stage C ++ have the extension .ii) using the `-E` flag, which tells the compiler that there is no need to compile (more on that later) the file, but only preprocess it.
+### Compilation
+At this step, `g++` performs its main task - it compiles, that is, it converts the code obtained in the previous step without directives into assembly code. It is an intermediate step between high-level language and machine (binary) code.
+
+Assembly code is a human-readable representation of machine code.
+
+Using the `-S` flag, which tells the compiler to stop after the compilation stage, we get the assembler code in the file.s output file.
+### Assembly
+Since x86 processors execute instructions in binary code, it is necessary to translate the assembly code into machine code using assembler.
+
+Assembler converts assembly code into machine code by storing it in an object file.
+
+`An object file is an assembly`-generated intermediate file that stores a piece of machine code. This piece of machine code, which has not yet been bundled together with other pieces of machine code into a final executable program, is called object code.
+
+Further, it is possible to save this object code into static libraries in order not to compile this code again.
+
+Let's get the machine code using assembler `as` into the file.o output object file.
+### Linking
+The linker links all object files and static libraries into a single executable file, which we can run in the future. In order to understand how the linking occurs, you should talk about the symbol table.
+
+`A symbol table` is a data structure created by the compiler itself and stored in the object files themselves. The symbol table stores the `names of variables`, `functions`, `classes`, `objects`, etc., where each identifier (symbol) is associated with its type, scope. Also, the symbol table stores the `addresses of data and procedure references in other object files`.
+
+It is with the help of the symbol table and the links stored in them that the linker will be able to further build connections between data among many other object files and create a single executable file from them.
+
+Sources:
+1. https://habr.com/ru/post/478124/
 ## GCC Compile Flags
 1. **-Wpedantic (-pedantic)** - checks that the code complies with the ISO C ++ standard, reports on the use of prohibited extensions, on the presence of extra semicolons, lack of line breaks at the end of the file, and other useful things
 2. **-Werror** - warning = error
