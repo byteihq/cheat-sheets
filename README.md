@@ -1253,6 +1253,7 @@ Disadvantages:
 **2. Inserting bytes and bits**
 
 The beginning and end of each frame are marked with special sequences of bytes and bits
+
 Examples:
 1. BSC protocol (DLE STX (Start of Text) | DLE ETX (End of Text))
 2. HDLC and PPP (01111110 - start and end of the frame)
