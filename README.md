@@ -1212,6 +1212,22 @@ _Output - 10_
 ```sh
 wget https://raw.githubusercontent.com/cpp-pm/gate/master/cmake/HunterGate.cmake -O cmake/HunterGate.cmake
 ```
+
+## OSI (Open System Interconnection) Model
+
+![](https://w7.pngwing.com/pngs/948/990/png-transparent-osi-model-conceptual-model-communication-protocol-class-diagram-computer-network-others-computer-network-text-computer.png)
+
+### Physical layer
+The goal is to represent bits of information as signals
+![pl1](https://user-images.githubusercontent.com/72094319/147076719-f640a41a-045d-4ffb-bdf5-adf1c7dbc9c2.png)
+#### Specifications
+1. Bandwidth
+2. Delay
+3. Number of errors
+
+**Sources:**
+1. https://www.youtube.com/channel/UC5gufuYHPSsJA-jul-iwyXA
+
 ## Sources
 1. [A.A. Borodin](https://github.com/drewxa)'s lectures
 2. [Google](https://www.google.ru/)
