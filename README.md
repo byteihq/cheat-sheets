@@ -1239,6 +1239,24 @@ If the network architecture allows multiple access to the communication channel:
 
 ![dl1](https://user-images.githubusercontent.com/72094319/147081404-f87bda4d-1b71-46e2-8c34-6b3c7876a063.png)
 
+#### Frame extraction methods
+**1. Specify the number of bytes of the frame**
+
+![dl2](https://user-images.githubusercontent.com/72094319/147082105-a346c710-ae78-4da3-af82-df2932ff6d1c.png)
+
+Advantages:
+1. Easy to implement
+
+Disadvantages:
+1. 1 error -> reading sequence out of order
+
+**2. Inserting bytes and bits**
+
+The beginning and end of each frame are marked with special sequences of bytes and bits
+Examples:
+1. BSC protocol (DLE STX (Start of Text) | DLE ETX (End of Text))
+2. HDLC and PPP (01111110 - start and end of the frame)
+
 **Sources:**
 1. https://www.youtube.com/channel/UC5gufuYHPSsJA-jul-iwyXA
 
