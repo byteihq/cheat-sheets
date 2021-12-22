@@ -1227,6 +1227,18 @@ The goal is to represent bits of information as signals
 2. Delay
 3. Number of errors
 
+### Data Layer
+Targets:
+1. Defining the start / end of a frame in a bitstream
+2. Error detection and correction
+
+If the network architecture allows multiple access to the communication channel:
+
+3. Addressing
+4. Consistent channel access
+
+![dl1](https://user-images.githubusercontent.com/72094319/147081404-f87bda4d-1b71-46e2-8c34-6b3c7876a063.png)
+
 **Sources:**
 1. https://www.youtube.com/channel/UC5gufuYHPSsJA-jul-iwyXA
 
