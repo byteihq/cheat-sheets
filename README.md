@@ -90,7 +90,8 @@
 * [Hunter](https://github.com/byteihq/cheat-sheets#hunter)
     + [Install](https://github.com/byteihq/cheat-sheets#install)
 * [OSI](https://github.com/byteihq/cheat-sheets#osi-open-system-interconnection-model)
-  + [Physical Layer](https://github.com/byteihq/cheat-sheets#physical-layer) 
+  + [Physical Layer](https://github.com/byteihq/cheat-sheets#physical-layer)
+  + [Data Link Layer](https://github.com/byteihq/cheat-sheets#data-link-layer)
 * [Sources](https://github.com/byteihq/cheat-sheets#sources)
 
 ## Container's operations complexity
