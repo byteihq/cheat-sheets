@@ -1227,7 +1227,7 @@ The goal is to represent bits of information as signals
 2. Delay
 3. Number of errors
 
-### Data Layer
+### Data Link Layer
 Targets:
 1. Defining the start / end of a frame in a bitstream
 2. Error detection and correction
@@ -1262,8 +1262,8 @@ Examples:
 
 _Preamble (Ethernet):_
 - Length = 8 bytes
-- The first 8 bytes = 10101010
-- The last bytes = 10101011
+- The first 7 bytes = 1010101**0**
+- The last bytes = 1010101**1**
 
 _Transmitting an unused character (fast Ethernet):_
 - The beginning of the frame - J (11000) and K (10001)
