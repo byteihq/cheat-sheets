@@ -1278,6 +1278,9 @@ _Transmitting an unused character (fast Ethernet):_
 - Resending data
   - If an error is found in the frame or it did not reach the recipient, it can be sent again
  
+ **Resending data model**
+![dl3](https://user-images.githubusercontent.com/72094319/147214833-a9fcd812-c0d8-447a-91aa-257238a313cb.png)
+ 
 **Sources:**
 1. https://www.youtube.com/channel/UC5gufuYHPSsJA-jul-iwyXA
 
