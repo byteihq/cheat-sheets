@@ -1270,6 +1270,14 @@ _Transmitting an unused character (fast Ethernet):_
 - The beginning of the frame - J (11000) and K (10001)
 - The end of the frame - T (01101)
 
+#### Error detection and correction
+- Error detection
+  - Check sum
+- Error correction
+  - Error correction codes (with redundant information)
+- Resending data
+  - If an error is found in the frame or it did not reach the recipient, it can be sent again
+ 
 **Sources:**
 1. https://www.youtube.com/channel/UC5gufuYHPSsJA-jul-iwyXA
 
