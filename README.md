@@ -1258,6 +1258,17 @@ Examples:
 1. BSC protocol (DLE STX (Start of Text) | DLE ETX (End of Text))
 2. HDLC and PPP (01111110 - start and end of the frame)
 
+**3. Physical layer facilities**
+
+_Preamble (Ethernet):_
+- Length = 8 bytes
+- The first 8 bytes = 10101010
+- The last bytes = 10101011
+
+_Transmitting an unused character (fast Ethernet):_
+- The beginning of the frame - J (11000) and K (10001)
+- The end of the frame - T (01101)
+
 **Sources:**
 1. https://www.youtube.com/channel/UC5gufuYHPSsJA-jul-iwyXA
 
