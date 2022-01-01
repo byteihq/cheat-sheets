@@ -29,6 +29,7 @@
     + [Pointers with const modidfcator](https://github.com/byteihq/cheat-sheets#pointers-with-const-modidfcator)
     + [Pointers arithmetic](https://github.com/byteihq/cheat-sheets#pointers-arithmetic)
     + [Smart Pointers](https://github.com/byteihq/cheat-sheets#smart-pointers)
+* [Lvalue vs Xvalue vs Rvalue](https://github.com/byteihq/cheat-sheets/blob/main/README.md#lvalue-vs-xvalue-vs-rvalue) 
 * [Diamond inheritance problem](https://github.com/byteihq/cheat-sheets#diamond-inheritance-problem)
     + [Case](https://github.com/byteihq/cheat-sheets#case)
     + [Possible solution](https://github.com/byteihq/cheat-sheets#possible-solution)
