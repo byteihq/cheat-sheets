@@ -336,6 +336,24 @@ p64 += 10; //shift by 10 * sizeof(int64_t) bytes = 80 bytes;
 3. [Unique Ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr) - **uncopyable, movable**
 4. [Shared Ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr) - **copyable, movable (also has atomic reference counter)**
 
+## Lvalue vs Xvalue vs Rvalue
+
+| Lvalue | Xvalue (expired value (also rvalue) since C++11) | Rvalue (Prvalue - pure rvalue) |
+|--------|--------|--------|
+| 1. Identifiers: x; | | 1. Literals: 5; 0.3f |
+| 2. = operation= (on primitives types) | | 2. Binary operations (+, -, \*, /, etc.) (on primitives types) |
+| 3. Prefix ++ -- (on primitives types) | |3. Postfix ++ -- |
+| 4. Unary \* | | 4. Unary &, +, -|
+| 5. Result of ?: (if both operands are lvalue) | | 5. Result of ?: (if one of operands is rvalue|
+| 6. Result of `,` if rhs-operand is lvalue | | 6. Result of `,` if rhs-operand is rvalue |
+| 7. Result of function call (or method or custom operator call) if return type is a lvalue-reference | Result of function call (or method, or custom operator call) if return type is a rvalue-reference | 7. ... if return type isn't a reference |
+| 8. The result of cast-expression if the result type is lvalue ref | Result of cast-expression if return type is rvalue-reference | 8. ... if the result if not a reference |
+
+P.S Example of usage comma operator
+```cpp
+int a = 1, b = 2;
+int i = (a += 2, a + b); // i = 5
+```
 ## Diamond inheritance problem
 ### Case
 ```cpp
@@ -1351,8 +1369,9 @@ _Transmitting an unused character (fast Ethernet):_
 
 ## Sources
 1. [A.A. Borodin](https://github.com/drewxa)'s lectures
-2. [Google](https://www.google.ru/)
-3. Video of some Indian from YouTube
+2. [C++ ФПМИ 1 курс](https://www.youtube.com/playlist?list=PLmSYEYYGhnBu1fFtnzKx-pycYbJnb0rOl)
+3. [Google](https://www.google.ru/)
+4. Video of some Indian from YouTube
 
 Have you read to here? I am glad to welcome you to
 ![](https://sun9-49.userapi.com/impg/iGjsn_4WWv9tEkpYeZTCLdSMJv3z35T8w_QLIw/1laQp36zUJU.jpg?size=1125x624&quality=96&sign=c96c63aae3e186feafbba57f26ed2d86&type=album)
