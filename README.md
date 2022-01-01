@@ -131,12 +131,73 @@ private:
     size_t head;
 };
 ```
+### Safe Stack
+```cpp
+template <class T>
+class SafeStack {
+private:
+    std::stack<T> data_;
+    std::shared_mutex m_;
+public:
+    T Pop() {
+        std::shared_lock<std::shared_mutex> sm(m_);
+        auto value = data_.top();
+        std::lock_guard<std::shared_mutex> lk(m_);
+        data_.pop();
+        return value;
+    }
+
+    void Push(const T& value) {
+        std::lock_guard<std::shared_mutex> lk(m_);
+        data_.push(value);
+    }
+
+    bool TryPop(T& value) {
+        if (m_.try_lock()) {
+            value = data_.top();
+            data_.pop();
+            return true;
+        }
+        return false;
+    }
+};
+```
 ### Notes
 _Stack is a LIFO data structure. It has methods push (by default it calls deque.push_back()) and pop (by default it calls deque.pop_back())_
 
 ## Queue
 _Similar to stack, but it's a FIFO data structure. Also has methods push (by default it calls deque.push_back()) and pop (by default it calls deque.pop_front())_
+### Safe Queue
+```cpp
+template<class T>
+class SafeQueue {
+private:
+    std::queue<T> data_;
+    std::shared_mutex m_;
+public:
+    T Pop() {
+        std::shared_lock<std::shared_mutex> sl(m_);
+        auto value = data_.front();
+        std::lock_guard<std::shared_mutex> lk(m_);
+        data_.pop();
+        return value;
+    }
 
+    void Push(const T &value) {
+        std::lock_guard<std::shared_mutex> lk(m_);
+        data_.push(value);
+    }
+
+    bool TryPop(T &value) {
+        if (m_.try_lock()) {
+            value = data_.front();
+            data_.pop();
+            return true;
+        }
+        return false;
+    }
+};
+```
 ## Priority Queue
 _Similar to queue but it has logarithmic insertion and extraction, because of it stores objects in an orderly fashion, it allows to get the largest object for the constant time_
 
