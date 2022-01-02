@@ -34,6 +34,9 @@
     - [Lvalue](https://github.com/byteihq/cheat-sheets/blob/main/README.md#lvalue)
     - [Rvalue](https://github.com/byteihq/cheat-sheets/blob/main/README.md#rvalue)
     - [Lvalue and Rvalue](https://github.com/byteihq/cheat-sheets/blob/main/README.md#lvalue-and-rvalue)
+  + [Reference Collapsing](https://github.com/byteihq/cheat-sheets#reference-collapsing)
+  + [Move implementation](https://github.com/byteihq/cheat-sheets#move-implementation)
+  + [Forward implementation](https://github.com/byteihq/cheat-sheets#forward-implementation)
 * [Diamond inheritance problem](https://github.com/byteihq/cheat-sheets#diamond-inheritance-problem)
     + [Case](https://github.com/byteihq/cheat-sheets#case)
     + [Possible solution](https://github.com/byteihq/cheat-sheets#possible-solution)
@@ -614,6 +617,7 @@ T&& forward(std::remove_reference<T>& t) noexcept {
     return static_cast<T&&>(t);
 }
 ```
+![qGRiiSadk-M](https://user-images.githubusercontent.com/72094319/147879879-70fa6489-638a-49c3-b64d-4fdb940e76d3.jpg)
 
 ## Diamond inheritance problem
 ### Case
