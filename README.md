@@ -350,6 +350,161 @@ p64 += 10; //shift by 10 * sizeof(int64_t) bytes = 80 bytes;
 | 7. Result of function call (or method or custom operator call) if return type is a lvalue-reference | Result of function call (or method, or custom operator call) if return type is a rvalue-reference | 7. ... if return type isn't a reference |
 | 8. The result of cast-expression if the result type is lvalue ref | Result of cast-expression if return type is rvalue-reference | 8. ... if the result if not a reference |
 
+### Examples
+#### Lvalue
+```cpp
+int main() {
+    int x;
+    int& rx = x;
+    
+    return 0;
+}
+```
+**Works**
+```cpp
+int main() {
+    int x;
+    const int& rx = x;
+
+    return 0;
+}
+```
+**Works**
+```cpp
+int main() {
+    const int x = 0;
+    const int& rx = x;
+
+    return 0;
+}
+```
+**Works**
+```cpp
+int main() {
+    const int x = 0;
+    int& rx = x;
+
+    return 0;
+}
+```
+**Doesn't work**
+```cpp
+int main() {
+    int& rx = 4;
+
+    return 0;
+}
+```
+**Doesn't work**
+```cpp
+int main() {
+    const int& rx = 4;
+
+    return 0;
+}
+```
+**Works**
+#### Rvalue
+```cpp
+int main() {
+    /*const*/ int&& rrx = 4;
+
+    return 0;
+}
+```
+**Works**
+```cpp
+int main() {
+    int x;
+    /*const*/ int&& rrx = x;
+
+    return 0;
+}
+```
+**Doesn't work**
+```cpp
+int main() {
+    int x = 5;
+    /*const*/ int&& rrx = 4;
+    rrx = x; /*not initialization but assignment*/
+    std::cout << rrx;
+    return 0;
+}
+```
+**Works, output - 5**
+```cpp
+int main() {
+    int x = 5;
+    /*const*/ int&& rrx = 4;
+    rrx = x; /*not initialization but assignment*/
+    x = 6;
+    std::cout << rrx;
+    return 0;
+}
+```
+**Works, output - 5**
+#### Lvalue and Rvalue
+```cpp
+int main() {
+    int&& rrx = 4;
+    int& rx = rrx;
+    std::cout << rx << ' ' << rrx;
+    return 0;
+}
+```
+**Works, output - 4 4**
+```cpp
+int main() {
+    int&& rrx = 4;
+    int& rx = rrx;
+    rx = 5;
+    std::cout << rx << ' ' << rrx;
+    return 0;
+}
+```
+**Works, output - 5 5**
+```cpp
+int main() {
+    /*const*/ int x = 4;
+    int &&rrx = 3;
+    rrx = x;
+    int &rx = rrx;
+    rrx = 6;
+    std::cout << x << ' ' << rx << ' ' << rrx;
+    return 0;
+}
+```
+**Works, output - 4 6 6**
+```cpp
+int main() {
+    int x = 1;
+    int& rx = x;
+    int&& rrx = rx;
+    return 0;
+}
+```
+**Doesn't work**
+```cpp
+int main() {
+    int x = 1;
+    int& rx = x;
+    int&& rrx = std::move(rx);
+    return 0;
+}
+```
+**Works**
+```cpp
+int main() {
+    int x = 1;
+    int& rx = x;
+    int&& rrx = std::move(rx);
+    rrx = 4;
+    std::cout << x << ' ' << rx << ' ' << rrx;
+    return 0;
+}
+```
+**Works, output - 4 4 4**
+
 P.S Example of usage comma operator
 ```cpp
 int a = 1, b = 2;
