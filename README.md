@@ -408,6 +408,22 @@ int main() {
 }
 ```
 **Works**
+```cpp
+int main() {
+    int x = 0;
+    int& rx = ++x;
+    return 0;
+}
+```
+**Works**
+```cpp
+int main() {
+    int x = 0;
+    int& rx = x++;
+    return 0;
+}
+```
+**Doesn't work**
 #### Rvalue
 ```cpp
 int main() {
