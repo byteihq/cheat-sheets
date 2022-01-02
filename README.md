@@ -593,6 +593,28 @@ P.S Example of usage comma operator
 int a = 1, b = 2;
 int i = (a += 2, a + b); // i = 5
 ```
+### [Reference collapsing](https://en.cppreference.com/w/cpp/language/reference)
+1. `&` + `&` = `&`
+2. `&&` + `&` = `&`
+3. `&` + `&&` = `&`
+4. `&&` + `&&` = `&&`
+
+### Move implementation
+```cpp
+template<typename T>
+std::remove_reference<T>&& move(T&& t) noexcept {
+    return static_cast<std::remove_reference<T>&&>(t);
+}
+```
+
+### Forward implementation
+```cpp
+template<typename T>
+T&& forward(std::remove_reference<T>& t) noexcept {
+    return static_cast<T&&>(t);
+}
+```
+
 ## Diamond inheritance problem
 ### Case
 ```cpp
