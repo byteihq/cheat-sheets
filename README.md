@@ -342,6 +342,70 @@ p64 += 10; //shift by 10 * sizeof(int64_t) bytes = 80 bytes;
 1. [Scooped Ptr](https://cs.brown.edu/~jwicks/boost/libs/smart_ptr/scoped_ptr.htm) - **uncopyable, unmovable**
 2. [Weak Ptr](https://en.cppreference.com/w/cpp/memory/weak_ptr) - **std::weak_ptr models temporary ownership: when an object needs to be accessed only if it exists, and it may be deleted at any time by someone else, std::weak_ptr is used to track the object, and it is converted to std::shared_ptr to assume temporary ownership. It has _expired_ method to check whether the referenced object was already deleted**
 3. [Unique Ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr) - **uncopyable, movable**
+
+**Simple implementation**
+```cpp
+template<class T>
+class unique_ptr {
+    T *ptr_;
+public:
+    unique_ptr() : ptr_(nullptr) {}
+
+    explicit unique_ptr(T *ptr) : ptr_(ptr) {}
+
+    ~unique_ptr() {
+        reset();
+    }
+
+    unique_ptr(unique_ptr<T> &&other) noexcept: ptr_(other.ptr_) {
+        other.ptr_ = nullptr;
+    }
+
+    unique_ptr<T> &operator=(unique_ptr<T> &&other) {
+        if (this != &other) {
+            ptr_ = other.ptr_;
+            other.ptr_ = nullptr;
+        }
+        return *this;
+    }
+
+    void reset(T *ptr = nullptr) {
+        delete ptr_;
+        ptr_ = ptr;
+    }
+
+    T *release() {
+        auto ptr = get();
+        ptr_ = nullptr;
+        return ptr;
+    }
+
+    void swap(unique_ptr<T> &other) {
+        std::swap(ptr_, other.ptr_);
+    }
+
+    T *operator->() {
+        return ptr_;
+    }
+
+    T &operator*() {
+        return *ptr_;
+    }
+
+    operator bool() const {
+        return ptr_ != nullptr;
+    }
+
+    T *get() {
+        return ptr_;
+    }
+};
+
+template<typename T, typename... Args>
+unique_ptr<T> make_unique(Args &&... args) {
+    return unique_ptr<T>(new T(std::forward<Args>(args)...));
+}
+```
 4. [Shared Ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr) - **copyable, movable (also has atomic reference counter)**
 
 ## Lvalue vs Xvalue vs Rvalue
