@@ -428,6 +428,23 @@ int main() {
 **Doesn't work**
 ```cpp
 int main() {
+    int&& rrx1 = 0;
+    int&& rrx2 = rrx1;
+}
+```
+**Doesn't work**
+```cpp
+int main() {
+    int&& rrx1 = 0;
+    int&& rrx2 = 1;
+    rrx2 = rrx1;
+    rrx1 = -1;
+    std::cout << rrx1 << ' ' << rrx2;
+}
+```
+**Works, output - -1 0**
+```cpp
+int main() {
     int x = 5;
     /*const*/ int&& rrx = 4;
     rrx = x; /*not initialization but assignment*/
@@ -508,6 +525,52 @@ int main() {
 }
 ```
 **Works, output - 4 4 4**
+```cpp
+class A {
+private:
+    int a;
+public:
+    A() : a(4) {}
+
+    A(const A &other) : a(other.a) {
+        std::cout << "Copy A" << std::endl;
+    }
+
+    A(A &&other) noexcept: a(other.a) {
+        other.a = 0;
+        std::cout << "Move A" << std::endl;
+    }
+};
+
+int main() {
+    A &&a1 = A();
+    [[maybe_unused]] A a2(a1);
+}
+```
+**Output - Copy A**
+```cpp
+class A {
+private:
+    int a;
+public:
+    A() : a(4) {}
+
+    A(const A &other) : a(other.a) {
+        std::cout << "Copy A" << std::endl;
+    }
+
+    A(A &&other) noexcept: a(other.a) {
+        other.a = 0;
+        std::cout << "Move A" << std::endl;
+    }
+};
+
+int main() {
+    A &&a1 = A();
+    [[maybe_unused]] A a2(std::move(a1));
+}
+```
+**Output - Move A**
 
 P.S Example of usage comma operator
 ```cpp
