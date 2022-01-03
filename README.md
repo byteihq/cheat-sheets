@@ -340,6 +340,44 @@ p64 += 10; //shift by 10 * sizeof(int64_t) bytes = 80 bytes;
 ```
 ### Smart Pointers
 1. [Scooped Ptr](https://cs.brown.edu/~jwicks/boost/libs/smart_ptr/scoped_ptr.htm) - **uncopyable, unmovable**
+
+**Simple implementation**
+```cpp
+template<class T>
+class scoped_ptr {
+    T *ptr_;
+public:
+
+    explicit scoped_ptr(T *ptr) : ptr_(ptr) {}
+
+    ~scoped_ptr() {
+        delete ptr_;
+    }
+
+    scoped_ptr(const scoped_ptr<T> &) = delete;
+
+    scoped_ptr(scoped_ptr<T> &&) = delete;
+
+    T *operator->() {
+        return ptr_;
+    }
+
+    T &operator*() {
+        return *ptr_;
+    }
+
+    T *get() {
+        return ptr_;
+    }
+
+};
+
+template<typename T, typename... Args>
+T* make_scoped(Args &&... args) {
+    return new T(std::forward<Args>(args)...);
+}
+```
+
 2. [Weak Ptr](https://en.cppreference.com/w/cpp/memory/weak_ptr) - **std::weak_ptr models temporary ownership: when an object needs to be accessed only if it exists, and it may be deleted at any time by someone else, std::weak_ptr is used to track the object, and it is converted to std::shared_ptr to assume temporary ownership. It has _expired_ method to check whether the referenced object was already deleted**
 3. [Unique Ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr) - **uncopyable, movable**
 
