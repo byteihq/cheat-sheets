@@ -143,28 +143,27 @@ private:
 ```
 ### Safe Stack
 ```cpp
-template <class T>
+template<class T>
 class SafeStack {
 private:
     std::stack<T> data_;
-    std::shared_mutex m_;
+    std::mutex m_;
 public:
     T Pop() {
-        std::shared_lock<std::shared_mutex> sm(m_);
-        auto value = data_.top();
-        std::lock_guard<std::shared_mutex> lk(m_);
+        std::lock_guard<std::mutex> lk(m_);
+        auto value = std::move(data_.top());
         data_.pop();
         return value;
     }
 
-    void Push(const T& value) {
-        std::lock_guard<std::shared_mutex> lk(m_);
+    void Push(const T &value) {
+        std::lock_guard<std::mutex> lk(m_);
         data_.push(value);
     }
 
-    bool TryPop(T& value) {
+    bool TryPop(T &value) {
         if (m_.try_lock()) {
-            value = data_.top();
+            value = std::move(data_.top());
             data_.pop();
             m_.unlock();
             return true;
@@ -184,24 +183,23 @@ template<class T>
 class SafeQueue {
 private:
     std::queue<T> data_;
-    std::shared_mutex m_;
+    std::mutex m_;
 public:
     T Pop() {
-        std::shared_lock<std::shared_mutex> sl(m_);
-        auto value = data_.front();
-        std::lock_guard<std::shared_mutex> lk(m_);
+        std::lock_guard<std::mutex> lk(m_);
+        auto value = std::move(data_.front());
         data_.pop();
         return value;
     }
 
     void Push(const T &value) {
-        std::lock_guard<std::shared_mutex> lk(m_);
+        std::lock_guard<std::mutex> lk(m_);
         data_.push(value);
     }
 
     bool TryPop(T &value) {
         if (m_.try_lock()) {
-            value = data_.front();
+            value = std::move(data_.front());
             data_.pop();
             m_.unlock();
             return true;
