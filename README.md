@@ -166,6 +166,7 @@ public:
         if (m_.try_lock()) {
             value = data_.top();
             data_.pop();
+            m_.unlock();
             return true;
         }
         return false;
@@ -202,6 +203,7 @@ public:
         if (m_.try_lock()) {
             value = data_.front();
             data_.pop();
+            m_.unlock();
             return true;
         }
         return false;
