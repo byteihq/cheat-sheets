@@ -74,6 +74,7 @@
     - [Notes](https://github.com/byteihq/cheat-sheets/blob/main/README.md#notes-7)
 * [Multithread Programming](https://github.com/byteihq/cheat-sheets#multithread-programming)
   + [lock_guard](https://github.com/byteihq/cheat-sheets#lock_guard)
+  + [unique_lock](https://github.com/byteihq/cheat-sheets#unique_lock)
   + [ThreadPool](https://github.com/byteihq/cheat-sheets#threadpool) 
     - [Implementation](https://github.com/byteihq/cheat-sheets#implementation-1)
     - [Notes](https://github.com/byteihq/cheat-sheets#notes-8)
