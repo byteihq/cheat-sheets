@@ -1362,6 +1362,68 @@ public:
     }
 };
 ```
+### [unique_lock](https://en.cppreference.com/w/cpp/thread/unique_lock)
+```cpp
+template<class Mutex>
+class unique_lock {
+    Mutex *m_;
+    bool belongs_;
+public:
+
+    unique_lock() : m_(nullptr), belongs_(false) {}
+
+    ~unique_lock() {
+        if (belongs_) {
+            m_->unlock();
+        }
+    }
+
+    unique_lock(unique_lock &&other) noexcept: m_(other.m_), belongs_(other.belongs_) {
+        other.m_ = nullptr;
+        other.belongs_ = false;
+    }
+
+    explicit unique_lock(Mutex &m) : m_(&m), belongs_(true) {
+        m_->lock();
+    }
+
+    unique_lock(Mutex &m, std::defer_lock_t t) noexcept: m_(&m), belongs_(false) {}
+
+    unique_lock(Mutex &m, std::adopt_lock_t t) : m_(&m), belongs_(true) {}
+
+    void lock() {
+        if (!m_) {
+            throw std::system_error(EPERM, std::generic_category());
+        } else if (!belongs_) {
+            throw std::system_error(EDEADLK, std::generic_category());
+        }
+        m_->lock();
+        belongs_ = true;
+    }
+
+    void unlock() {
+        if (!m_) {
+            throw std::system_error(EPERM, std::generic_category());
+        }
+        m_->unlock();
+        belongs_ = false;
+    }
+
+    unique_lock<Mutex> &operator=(unique_lock<Mutex> &&other) {
+        if (this != &other) {
+            if (belongs_) {
+                unlock();
+            }
+            m_ = other.m_;
+            belongs_ = other.belongs_;
+
+            other.m_ = nullptr;
+            other.belongs_ = false;
+        }
+        return *this;
+    }
+};
+```
 ### ThreadPool
 ![](https://bmstu-iu8-cpp.github.io/cpp-upper-intermediate/lec_07/res/multitask2.jpg)
 #### [Implementation](https://github.com/progschj/ThreadPool)
