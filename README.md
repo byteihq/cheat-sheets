@@ -124,7 +124,7 @@
 | 1. Input Iterator | Go through the content 1 time | std::istream |
 | 2. Forward Iterator | `++` | forward_list, unordered_map, unordered_map |
 | 3. Bidirectional Iterator | `++`, `--` | list, map, set |
-| 4. Random Access Iterator | `++`, `--`, `+=`, `-=`, `<`, `>` | vector, deque | 
+| 4. Random Access Iterator | `++`, `--`, `+=`, `-=`, `<`, `>`, `it1 - it2` | vector, deque | 
  
 ## Vector
 ### [Implementation](https://github.com/byteihq/Vector)
