@@ -1339,10 +1339,31 @@ int main() {
 ```
 #### Notes
 The adapter acts as a layer between two objects, converting the calls of one into calls that are understandable to the other.
-## ThreadPool
+## Multithread Programming
+### [lock_guard](https://en.cppreference.com/w/cpp/thread/lock_guard)
+```cpp
+template<typename mutex>
+class lock_guard {
+private:
+    mutex &m_;
+public:
+    explicit lock_guard(mutex &m) : m_(m) {
+        m_.lock();
+    }
+
+    lock_guard(mutex &m, std::adopt_lock_t) : m_(m) {}
+
+    lock_guard(const lock_guard &) = delete;
+
+    ~lock_guard() {
+        m_.unlock();
+    }
+};
+```
+### ThreadPool
 ![](https://bmstu-iu8-cpp.github.io/cpp-upper-intermediate/lec_07/res/multitask2.jpg)
-### [Implementation](https://github.com/progschj/ThreadPool)
-### Notes
+#### [Implementation](https://github.com/progschj/ThreadPool)
+#### Notes
 A thread pool is a set of a fixed number of threads that are created when the application starts. Threads then sit and wait for requests coming to them, usually through a semaphore-driven queue. When a request is made and at least one thread is waiting, the thread wakes up, services the request, and returns to waiting on the semaphore. If no threads are available, requests are queued until one of them is available. Thread pools are generally a more efficient way to manage resources than just starting a new thread for each request. However, some architectures allow new threads to be created and added to the pool as the application runs, depending on the load on the request.
 ## Async Programming
 Asynchronous programming is a form of parallel programming that allows a unit of work to run separately from the primary application thread. When the work is complete, it notifies the main thread (as well as whether the work was completed or failed).
