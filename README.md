@@ -117,6 +117,14 @@
 |[set](https://en.cppreference.com/w/cpp/container/set) / [map](https://en.cppreference.com/w/cpp/container/map)| O(logN) |none|O(logN)|O(logN)|O(logN)|
 |[unordered_set](https://en.cppreference.com/w/cpp/container/unordered_set) / [unordered_map](https://en.cppreference.com/w/cpp/container/unordered_map)| Q(1) mean | none | O(1) mean| O(1) mean| O(1) mean|
 
+## Categories of Iteartors
+| Name | Possibilities | Containers |
+|------|---------------|------------|
+| 1. Input Iterator | Go through the content 1 time | std::istream |
+| 2. Forward Iterator | `++` | forward_list, unordered_map, unordered_map |
+| 3. Bidirectional Iterator | `++`, `--` | list, map, set |
+| 4. Random Access Iterator | `++`, `--`, `+=`, `-=`, `<`, `>` | vector, deque | 
+ 
 ## Vector
 ### [Implementation](https://github.com/byteihq/Vector)
 
