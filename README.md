@@ -1,5 +1,6 @@
 ## Content
 * [Container's operations complexity](https://github.com/byteihq/cheat-sheets#containers-operations-complexity)
+* [Categories of Iterators](https://github.com/byteihq/cheat-sheets#categories-of-iteartors)
 * [Vector](https://github.com/byteihq/cheat-sheets#vector)
   + [Implementation](https://github.com/byteihq/cheat-sheets#implementation)
 * [Deque](https://github.com/byteihq/cheat-sheets#deque)
