@@ -121,6 +121,27 @@
 |[set](https://en.cppreference.com/w/cpp/container/set) / [map](https://en.cppreference.com/w/cpp/container/map)| O(logN) |none|O(logN)|O(logN)|O(logN)|
 |[unordered_set](https://en.cppreference.com/w/cpp/container/unordered_set) / [unordered_map](https://en.cppreference.com/w/cpp/container/unordered_map)| Q(1) mean | none | O(1) mean| O(1) mean| O(1) mean|
 
+## Reference qualifiers
+```cpp
+class A {
+public:
+    void a() & {
+        std::cout << 1;
+    }
+
+    void a() && {
+        std::cout << 2;
+    }
+};
+
+int main() {
+    A a;
+    a.a();
+    A().a();
+    return 0;
+}
+```
+_Output - 12_
 ```cpp
 template<typename T>
 class optional {
