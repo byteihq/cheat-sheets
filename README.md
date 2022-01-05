@@ -121,6 +121,74 @@
 |[set](https://en.cppreference.com/w/cpp/container/set) / [map](https://en.cppreference.com/w/cpp/container/map)| O(logN) |none|O(logN)|O(logN)|O(logN)|
 |[unordered_set](https://en.cppreference.com/w/cpp/container/unordered_set) / [unordered_map](https://en.cppreference.com/w/cpp/container/unordered_map)| Q(1) mean | none | O(1) mean| O(1) mean| O(1) mean|
 
+```cpp
+template<typename T>
+class optional {
+private:
+    static_assert(!std::is_const<T>::value, "bad T");
+    T value_;
+    bool has_;
+public:
+    constexpr optional() noexcept: has_(false) {}
+
+    constexpr optional(std::nullopt_t) noexcept: has_(false) {}
+
+    constexpr optional(const optional &other) = default;
+
+    optional<T> &operator=(const optional<T> &) = default;
+
+    constexpr optional(optional &&other) noexcept: value_(std::move(other.value_)), has_(other.has_) {
+        other.value_ = T();
+        other.has_ = false;
+    }
+
+    optional<T> &operator=(optional<T> &&other) noexcept {
+        if (this != &other) {
+            value_ = std::move(other.value_);
+            has_ = other.has_;
+
+            other.value_ = T();
+            other.has_ = false;
+        }
+        return *this;
+    }
+
+    template<typename U = T>
+    optional<T> &operator=(U &&value) {
+        value_ = std::forward<U>(value);
+        has_ = true;
+        return *this;
+    }
+
+    T &operator*() {
+        return value_;
+    }
+
+    T *operator->() {
+        return &value_;
+    }
+
+    explicit operator bool() const {
+        return has_;
+    }
+
+    T &value() {
+        if (has_) {
+            return value_;
+        }
+        throw std::bad_optional_access();
+    }
+
+    template<class U>
+    T value_or(U &&default_value) {
+        if (has_) {
+            return value_;
+        }
+        return static_cast<T>(std::forward<U>(default_value));
+    }
+};
+```
+
 ## Categories of Iteartors
 | Name | Possibilities | Containers |
 |------|---------------|------------|
