@@ -125,7 +125,60 @@
 | 2. Forward Iterator | `++` | forward_list, unordered_map, unordered_map |
 | 3. Bidirectional Iterator | `++`, `--` | list, map, set |
 | 4. Random Access Iterator | `++`, `--`, `+=`, `-=`, `<`, `>`, `it1 - it2` | vector, deque | 
- 
+
+### [std::advance](https://en.cppreference.com/w/cpp/iterator/advance)
+```cpp
+template <typename Iter>
+void Advance(Iter& iter, size_t shift) {
+    if (std::is_same_v<typename std::iterator_traits<Iter>::iterator_category, std::random_access_iterator_tag>) {
+        iter += shift;
+    } else {
+        for (size_t i = 0; i < shift; ++i, ++iter);
+    }
+}
+```
+_Output - CE_
+
+**Solution since C++11**
+```cpp
+template<typename Iter, typename IterCategory>
+void AdvanceHandler(Iter& iter, size_t shift, IterCategory) {
+    for (size_t i = 0; i < shift; ++i, ++iter);
+}
+
+template<typename Iter>
+void AdvanceHandler(Iter& iter, size_t shift, std::random_access_iterator_tag) {
+    iter += shift;
+}
+
+template <typename Iter>
+void Advance(Iter& iter, size_t shift) {
+    AdvanceHandler(iter, shift, typename std::iterator_traits<Iter>::iterator_category());
+}
+```
+**Solution since C++17**
+```cpp
+template<typename Iter>
+void Advance(Iter &iter, size_t shift) {
+    if constexpr (std::is_same_v<typename std::iterator_traits<Iter>::iterator_category, std::random_access_iterator_tag>) {
+        iter += shift;
+    } else {
+        for (size_t i = 0; i < shift; ++i, ++iter);
+    }
+}
+```
+### [std::distance](https://en.cppreference.com/w/cpp/iterator/distance)
+```cpp
+template<typename Iter>
+typename std::iterator_traits<Iter>::difference_type Distance(Iter iter1, Iter iter2) {
+    if constexpr (std::is_same_v<typename std::iterator_traits<Iter>::iterator_category, std::random_access_iterator_tag>) {
+        return iter2 - iter1;
+    }
+    typename std::iterator_traits<Iter>::difference_type dist = 0;
+    for (; iter1 != iter2; ++iter1, ++dist);
+    return dist;
+}
+```
 ## Vector
 ### [Implementation](https://github.com/byteihq/Vector)
 
