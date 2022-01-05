@@ -1,6 +1,9 @@
 ## Content
 * [Container's operations complexity](https://github.com/byteihq/cheat-sheets#containers-operations-complexity)
 * [Categories of Iterators](https://github.com/byteihq/cheat-sheets#categories-of-iteartors)
+  + [std::advance](https://github.com/byteihq/cheat-sheets#stdadvance)
+  + [std::distance](https://github.com/byteihq/cheat-sheets#stddistance)
+  + [std::back_inserter](https://github.com/byteihq/cheat-sheets#stdback_inserter) 
 * [Vector](https://github.com/byteihq/cheat-sheets#vector)
   + [Implementation](https://github.com/byteihq/cheat-sheets#implementation)
 * [Deque](https://github.com/byteihq/cheat-sheets#deque)
