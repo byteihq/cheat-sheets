@@ -179,6 +179,34 @@ typename std::iterator_traits<Iter>::difference_type Distance(Iter iter1, Iter i
     return dist;
 }
 ```
+### [std::back_inserter](https://en.cppreference.com/w/cpp/iterator/back_inserter)
+```cpp
+template<typename Container>
+class Back_insert_iterator {
+private:
+    Container &container_;
+public:
+    explicit Back_insert_iterator(Container &container) : container_(container) {}
+
+    Back_insert_iterator<Container> &operator++() {
+        return *this;
+    }
+
+    Back_insert_iterator<Container> &operator*() {
+        return *this;
+    }
+
+    Back_insert_iterator<Container> &operator=(const typename Container::value_type &value) {
+        container_.push_back(value);
+        return *this;
+    }
+};
+
+template<typename Container>
+Back_insert_iterator<Container> Back_inserter(Container &container) {
+    return Back_insert_iterator<Container>(container);
+}
+```
 ## Vector
 ### [Implementation](https://github.com/byteihq/Vector)
 
