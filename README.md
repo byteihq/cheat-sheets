@@ -280,7 +280,60 @@ Back_insert_iterator<Container> Back_inserter(Container &container) {
 ```
 ## Vector
 ### [Implementation](https://github.com/byteihq/Vector)
+### Vector bool
+```cpp
+template<typename T>
+class Vector {
+};
 
+template<>
+class Vector<bool> {
+private:
+    uint8_t *data_;
+    size_t size_;
+    size_t capacity_;
+
+    class BitReference {
+    private:
+        uint8_t *ptr_;
+        size_t shift_;
+    public:
+        explicit BitReference(uint8_t *ptr, size_t shift) : ptr_(ptr), shift_(shift) {}
+
+        explicit BitReference(uint8_t *ptr, size_t shift, bool state) : ptr_(ptr), shift_(shift) {
+            *this = state;
+        }
+
+        BitReference &operator=(bool b) {
+            if (b) {
+                *ptr_ |= (1u << shift_);
+            } else {
+                *ptr_ &= ~(1u << shift_);
+            }
+            return *this;
+        }
+
+        explicit operator bool() const {
+            return *ptr_ & (1u << shift_);
+        }
+    };
+
+public:
+    Vector(size_t size, bool state) : data_(new uint8_t[size / 8 + 1]), size_(size / 8 + 1), capacity_(size / 8 + 1) {
+        for (size_t i = 0; i < size; ++i) {
+            BitReference{data_ + i / 8, i % 8, state};
+        }
+    }
+
+    BitReference operator[](size_t i) {
+        return BitReference{data_ + i / 8, i % 8};
+    }
+
+    ~Vector() {
+        delete[] data_;
+    }
+};
+```
 ## Deque
 ### [Idea](https://github.com/byteihq/Deque)
 
