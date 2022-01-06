@@ -1,5 +1,7 @@
 ## Content
 * [Container's operations complexity](https://github.com/byteihq/cheat-sheets#containers-operations-complexity)
+* [Reference qualifires](https://github.com/byteihq/cheat-sheets#reference-qualifiers)
+* [std::optional](https://github.com/byteihq/cheat-sheets#stdoptional)
 * [Categories of Iterators](https://github.com/byteihq/cheat-sheets#categories-of-iteartors)
   + [std::advance](https://github.com/byteihq/cheat-sheets#stdadvance)
   + [std::distance](https://github.com/byteihq/cheat-sheets#stddistance)
@@ -142,6 +144,7 @@ int main() {
 }
 ```
 _Output - 12_
+## [std::optional](https://en.cppreference.com/w/cpp/utility/optional)
 ```cpp
 template<typename T>
 class optional {
