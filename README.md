@@ -123,6 +123,7 @@
 |[set](https://en.cppreference.com/w/cpp/container/set) / [map](https://en.cppreference.com/w/cpp/container/map)| O(logN) |none|O(logN)|O(logN)|O(logN)|
 |[unordered_set](https://en.cppreference.com/w/cpp/container/unordered_set) / [unordered_map](https://en.cppreference.com/w/cpp/container/unordered_map)| Q(1) mean | none | O(1) mean| O(1) mean| O(1) mean|
 
+
 ## Reference qualifiers
 ```cpp
 class A {
@@ -1028,6 +1029,188 @@ P.S Example of usage comma operator
 ```cpp
 int a = 1, b = 2;
 int i = (a += 2, a + b); // i = 5
+```
+
+## auto, decltype, decltype(auto)
+### auto examples
+#### f() implemetation
+```cpp
+template<typename U>
+void f(U&&) = delete;
+```
+```cpp
+int& g(int& x) {
+    return x;
+}
+
+int main() {
+    int x = 4;
+    auto r = g(x);
+    f<decltype(r)>();
+    return 0;
+}
+```
+_r - int_
+```cpp
+int& g(int& x) {
+    return x;
+}
+
+int main() {
+    int x = 4;
+    auto& r = g(x);
+    f<decltype(r)>();
+    return 0;
+}
+```
+_r - int&_
+```cpp
+int& g(int& x) {
+    return x;
+}
+
+int main() {
+    int x = 4;
+    // universal reference!!!
+    auto&& r = g(x);
+    f<decltype(r)>();
+    return 0;
+}
+```
+_r - int&_
+```cpp
+const int& g(int& x) {
+    return x;
+}
+
+int main() {
+    int x = 4;
+    auto& r = g(x);
+    f<decltype(r)>();
+    return 0;
+}
+
+```
+_r - const int&_
+```cpp
+template<typename U>
+auto g(const U& u) {
+    if constexpr (std::is_same_v<U, int>) {
+        return 1;
+    } else { // else is necessary!!!
+        return 1.1;
+    }
+}
+
+int main() {
+    f<decltype(g(2))>();
+    return 0;
+}
+```
+_int_
+```cpp
+template<typename U>
+auto g(const U& u) {
+    if constexpr (std::is_same_v<U, int>) {
+        return 1;
+    } else { // else is necessary!!!
+        return 1.1;
+    }
+}
+
+int main() {
+    f<decltype(g(2.0f))>();
+    return 0;
+}
+```
+_double_
+### decltype example
+* if expr is not an identifier
+  - if expr is rvalue, then T
+  - if expr is lvalue, then T&
+  - if expr is xvalue, then T&&
+```cpp
+int g(int& x) {
+    return x;
+}
+
+int main() {
+    int x = 4;
+    auto r = g(x);
+    const decltype(r)& rr = x;
+    f<decltype(r)>();
+    f<decltype(rr)>();
+    return 0;
+}
+```
+```cpp
+int g(int& x) {
+    return x;
+}
+
+int main() {
+    int x = 4;
+    auto r = g(x);
+    const decltype(x++)& rr = x;
+    f<decltype(r)>();
+    f<decltype(rr)>();
+    return 0;
+}
+```
+_r - int, rr - const int&_
+```cpp
+int g(int& x) {
+    return x;
+}
+
+int&& h(int&& x) {
+    return std::move(x);
+}
+
+int main() {
+    int x = 4;
+    auto r = g(x);
+    decltype(h(3)) rr = x;
+    f<decltype(r)>();
+    f<decltype(rr)>();
+    return 0;
+}
+```
+_CE_
+### decltype (auto) example
+```cpp
+template <typename T, typename U>
+auto g(const T& t, const U& u) -> decltype(t / u) {
+    return t / u;
+}
+
+int main() {
+    int u = 2;
+    f<decltype(g(2, 3))>();
+    return 0;
+}
+```
+_int_
+```cpp
+template <typename T, typename U>
+auto g(const T& t, const U& u) -> decltype(t / u) {
+    return t / u;
+}
+
+int main() {
+    int u = 2;
+    f<decltype(g(2, 3.0f))>();
+    return 0;
+}
+```
+_float_
+
+**It's equal to**
+```cpp
+template <typename T, typename U>
+decltype(auto) g(const T& t, const U& u) {
+    return t / u;
+}
 ```
 ### [Reference collapsing](https://en.cppreference.com/w/cpp/language/reference)
 1. `&` + `&` = `&`
