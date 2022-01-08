@@ -214,7 +214,7 @@ public:
     }
 };
 ```
-## [sdt::any](https://en.cppreference.com/w/cpp/utility/any)
+## [std::any](https://en.cppreference.com/w/cpp/utility/any)
 ```cpp
 class Any {
 private:
