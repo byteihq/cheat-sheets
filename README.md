@@ -2,6 +2,7 @@
 * [Container's operations complexity](https://github.com/byteihq/cheat-sheets#containers-operations-complexity)
 * [Reference qualifires](https://github.com/byteihq/cheat-sheets#reference-qualifiers)
 * [std::optional](https://github.com/byteihq/cheat-sheets#stdoptional)
+* [std::any](https://github.com/byteihq/cheat-sheets#stdany)
 * [Categories of Iterators](https://github.com/byteihq/cheat-sheets#categories-of-iteartors)
   + [std::advance](https://github.com/byteihq/cheat-sheets#stdadvance)
   + [std::distance](https://github.com/byteihq/cheat-sheets#stddistance)
@@ -213,7 +214,84 @@ public:
     }
 };
 ```
+## [sdt::any](https://en.cppreference.com/w/cpp/utility/any)
+```cpp
+class Any {
+private:
+    class Base {
+    public:
+        virtual Base *get_copy() const = 0;
 
+        virtual const std::type_info &get_type() const noexcept = 0;
+
+        virtual ~Base() {}
+    };
+
+    template<typename T>
+    class Derived : public Base {
+    public:
+        T value_;
+
+        template<typename U = T>
+        explicit Derived(U &&value) : value_(std::forward<U>(value)) {}
+
+        Base *get_copy() const override {
+            return new Derived<T>(value_);
+        }
+
+        const std::type_info &get_type() const noexcept override {
+            return typeid(T);
+        }
+    };
+
+    Base *data_;
+
+    template<class ValueType>
+    friend ValueType any_cast(const Any &operand);
+
+    template<class ValueType>
+    friend ValueType *any_cast(Any *operand) noexcept;
+
+public:
+    Any() : data_(nullptr) {}
+
+    template<typename ValueType>
+    explicit Any(ValueType &&other) : data_(new Derived<ValueType>(std::forward<ValueType>(other))) {}
+
+    Any(const Any &rhs) : data_(rhs.data_->get_copy()) {}
+
+    template<typename ValueType>
+    Any &operator=(ValueType &&value) {
+        delete data_;
+        data_ = new Derived<ValueType>(std::forward<ValueType>(value));
+        return *this;
+    }
+
+    const std::type_info &type() const noexcept {
+        return data_->get_type();
+    }
+
+    ~Any() {
+        delete data_;
+    }
+};
+
+template<class ValueType>
+ValueType any_cast(const Any &operand) {
+    if (typeid(ValueType) != operand.type()) {
+        throw std::bad_any_cast();
+    }
+    return dynamic_cast<Any::Derived<ValueType> *>(operand.data_)->value_;
+}
+
+template<class ValueType>
+ValueType *any_cast(Any *operand) noexcept {
+    if (operand != nullptr && operand->type() == typeid(ValueType)) {
+        return &dynamic_cast<Any::Derived<ValueType> *>(operand->data_)->value_;
+    }
+    return nullptr;
+}
+```
 ## Categories of Iteartors
 | Name | Possibilities | Containers |
 |------|---------------|------------|
