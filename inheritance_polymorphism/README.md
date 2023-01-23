@@ -32,6 +32,205 @@ int main() {
 }
 ```
 _Output - 4 10_
+### (down / up)cast with non-virtual inheritance
+```cpp
+struct Padding {
+    int x, y;
+
+    virtual ~Padding() = default;
+};
+
+struct A {
+    int _a;
+
+    explicit A(int a) : _a(a) {}
+
+    virtual ~A() = default;
+};
+
+struct B {
+    int _b;
+
+    explicit B(int b) : _b(b) {}
+
+    virtual ~B() = default;
+};
+
+struct C: Padding, A, B {
+    int _c;
+
+    explicit C(int c): A(c * 2), B(c * 3), _c(c) {}
+};
+
+int main() {
+    C *pc = new C(4);
+    std::cout << std::hex << pc << ' ' << std::dec << pc->_c << std::endl;
+
+    auto *pa = static_cast<A *>(pc);
+    std::cout << std::hex << pa << ' ' << std::dec << pa->_a << std::endl;
+
+    auto *pb = static_cast<B *>(pc);
+    std::cout << std::hex << pb << ' ' << std::dec << pb->_b << std::endl;
+
+    pc = static_cast<C *>(pa);
+    std::cout << std::hex << pc << ' ' << std::dec << pc->_c << std::endl;
+
+    pc = static_cast<C *>(pb);
+    std::cout << std::hex << pc << ' ' << std::dec << pc->_c << std::endl;
+    return 0;
+}
+```
+### Diamond inheritance problem
+#### Case
+```cpp
+struct A {
+    int a;
+};
+
+struct B : public A {
+    int b;
+};
+
+struct C : public A {
+    int c;
+};
+
+struct D : public B, public C {
+    int d;
+};
+
+int main() {
+    D d;
+    d.a;
+}
+```
+_Result - CE_
+
+_Location of objects in memory - ( a )( b )( a )( c )( d )_
+#### Possible solution
+```cpp
+struct A {
+    int a;
+};
+
+struct B : public virtual A {
+    int b;
+};
+
+struct C : public virtual A {
+    int c;
+};
+
+struct D : public B, public C {
+    int d;
+};
+
+int main() {
+    D d;
+    d.a;
+}
+```
+_Location of objects in memory - ( b_ptr )( b )( c_ptr )( c )( d )( a )_
+#### Notes
+```cpp
+struct A {
+    int _a;
+
+    A(int a) : _a(a) {}
+};
+
+struct B : public virtual A {
+    int _b;
+
+    B(int b): A(3 * b), _b(2 * b) {}
+};
+
+struct C : public virtual A {
+    int _c;
+
+    C(int c): A(4 * c), _c(3 * c) {}
+};
+
+struct D : public B, public C {
+    D(int d): A(d / 2), B(d), C(d) {}
+};
+
+int main() {
+    D d(4); // _a = 2; _a = 12; _a = 16 ???
+    std::cout << d._a;
+}
+```
+_Output - 2_
+1. If we'll inherit virtually only one time, it won't solve this problem
+```cpp
+struct A {
+    int a;
+};
+
+struct B : public A {
+    int b;
+};
+
+struct C : public virtual A {
+    int c;
+};
+
+struct D : public B, public C {
+    int d;
+};
+
+int main() {
+    D d;
+    d.a;
+}
+```
+_Location of objects in memory - ( a )( b )( c_ptr )( c )( d )( a )_
+
+2. Virtual inherit in the also won't solve the problem.
+```cpp
+struct A {
+    int a;
+};
+
+struct B : public A {
+    int b;
+};
+
+struct C : public A {
+    int c;
+};
+
+struct D : public virtual B, public virtual C {
+    int d;
+};
+
+int main() {
+    D d;
+    d.a;
+}
+```
+_Location of objects in memory - ( d_ptr )->( b_ptr && c_ptr )( d )( a )( b )( a )( c )_
+
+3. Kill this guy
+```cpp
+struct A {
+    int a;
+};
+
+struct B : public A {
+    int b;
+};
+
+struct D : public B, public A {
+    int d;
+};
+
+int main() {
+    D d;
+    d.a;
+}
+```
+_Location of objects in memory - ( a )( b )( a )( d )_
 ## Polymorphism
 ### Static
 ```cpp
