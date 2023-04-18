@@ -1349,53 +1349,104 @@ It's very simple to implement a single clumsy Singleton - you just need to hide 
 ### Observer
 #### Example
 ```cpp
-class Handler {
-public:
-    class HandlerObserver {
-    public:
-        virtual void Update() const = 0;
-    };
-
-    void AddObserver(const HandlerObserver &observer);
-
-    void DeleteObserver(const HandlerObserver &observer);
-
-    void DoSmth();
-
+class IObserver {
 private:
-    void NotifyAll();
-
-    std::vector<const HandlerObserver *> observers_;
-};
-
-void Handler::AddObserver(const HandlerObserver &observer) {
-    observers_.push_back(&observer);
-}
-
-void Handler::DeleteObserver(const HandlerObserver &observer) {
-    auto it = std::remove(observers_.begin(), observers_.end(), &observer);
-    observers_.erase(it, observers_.end());
-}
-
-void Handler::DoSmth() {
-    // some code
-    NotifyAll();
-    // other code
-}
-
-void Handler::NotifyAll() {
-    for (const auto &observer: observers_) {
-        observer->Update();
-    }
-}
-
-class Observer : public Handler::HandlerObserver {
+	std::string _name;
 public:
-    void Update() const override;
+	explicit IObserver(const std::string& name) : _name(name) {}
+
+	virtual ~IObserver() {}
+
+	virtual void OnNotify() = 0;
 };
 
-void Observer::Update() const {
-    // notification
+class Log : public IObserver {
+public:
+	Log() : IObserver("log_observer") {}
+
+	void OnNotify() override {
+		std::cout << "log\n";
+	}
+};
+
+class Physic : public IObserver {
+public:
+	Physic() : IObserver("physic_observer") {}
+
+	void OnNotify() override {
+		std::cout << "physic\n";
+	}
+};
+
+class Audio : public IObserver {
+public:
+	Audio() : IObserver("audio_observer") {}
+
+	void OnNotify() override {
+		std::cout << "audio\n";
+	}
+};
+
+class ISubject {
+public:
+	enum class MessageType {
+		LOG_EVENT,
+		PHYSIC_EVENT,
+		AUDIO_EVENT
+	};
+private:
+	using ObserversConatienr = std::vector<std::shared_ptr<IObserver>>;
+
+	std::unordered_map<MessageType, ObserversConatienr> _observers;
+public:
+	virtual ~ISubject() {}
+
+	virtual void Attach(MessageType msg, const std::shared_ptr<IObserver>& observer) {
+		auto it = std::find(_observers[msg].begin(), _observers[msg].end(), observer);
+		if (it == _observers[msg].end())
+			_observers[msg].push_back(observer);
+	}
+
+	virtual void Detach(MessageType msg) {
+		if (_observers.count(msg) == 0 || _observers[msg].empty())
+			return;
+
+		_observers[msg].pop_back();
+	}
+
+	virtual void Notify(MessageType msg) {
+		if (_observers.count(msg) == 0)
+			return;
+
+		for (auto& o : _observers[msg])
+			o->OnNotify();
+	}
+
+	virtual void NotifyAll() {
+		for (auto& [key, value] : _observers)
+			for (auto& o : value)
+				o->OnNotify();
+	}
+};
+
+class Subject : public ISubject {};
+
+int main() {
+	Subject s;
+
+	auto log = std::make_shared<Log>();
+	auto physic = std::make_shared<Physic>();
+	auto audio = std::make_shared<Audio>();
+
+	s.Attach(ISubject::MessageType::LOG_EVENT, log);
+	s.Attach(ISubject::MessageType::PHYSIC_EVENT, physic);
+	s.Attach(ISubject::MessageType::AUDIO_EVENT, audio);
+
+	s.NotifyAll();
+
+	s.Notify(ISubject::MessageType::LOG_EVENT);
+
+	return 0;
 }
 ```
 #### Notes
