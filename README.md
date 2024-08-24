@@ -852,6 +852,8 @@ SharedPtr<T> make_shared(Args &&... args) {
 | 7. Result of function call (or method or custom operator call) if return type is a lvalue-reference | Result of function call (or method, or custom operator call) if return type is a rvalue-reference | 7. ... if return type isn't a reference |
 | 8. The result of cast-expression if the result type is lvalue ref | Result of cast-expression if return type is rvalue-reference | 8. ... if the result if not a reference |
 
+![image](https://github.com/user-attachments/assets/2a6da18b-0fa0-447f-b99c-796cc10bc297)
+
 ### Examples
 #### Lvalue
 ```cpp
