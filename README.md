@@ -840,6 +840,24 @@ SharedPtr<T> make_shared(Args &&... args) {
 ```
 
 ## Lvalue vs Xvalue vs Rvalue
+![image](https://github.com/user-attachments/assets/9b5fb31c-f234-4b23-98cb-702463741307)
+![image](https://github.com/user-attachments/assets/b242d6c5-2d56-4b76-bbef-5c90dbf12310)
+
+disambiguation
+![image](https://github.com/user-attachments/assets/6d4a8398-a84f-46fa-97bc-10f25f179a20)
+![image](https://github.com/user-attachments/assets/bbac9153-ee3b-4440-96dd-bc0c893d330d)
+![image](https://github.com/user-attachments/assets/3995995a-8ec0-4281-b59e-32f9191d4ba0)
+
+deduction hint
+![image](https://github.com/user-attachments/assets/892c2c2f-9f4a-4e07-9260-02a9ba42043f)
+![image](https://github.com/user-attachments/assets/0a8b2a7f-4d29-4e85-a51e-6097c153818f)
+![image](https://github.com/user-attachments/assets/9f24453c-0527-4a15-b0c0-5d0cd8dbfb0b)
+![image](https://github.com/user-attachments/assets/28cc0c9a-d355-4ffc-973a-da52fd250b36)
+![image](https://github.com/user-attachments/assets/0157f8d3-1a1f-4728-8d41-40f2137cda3f)
+![image](https://github.com/user-attachments/assets/061d98bd-f4ed-48e5-8021-6d17c254c2b8)
+
+
+
 
 | Lvalue | Xvalue (expired value (also rvalue) since C++11) | Rvalue (Prvalue - pure rvalue) |
 |--------|--------|--------|
