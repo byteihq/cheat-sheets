@@ -281,7 +281,9 @@ ValueType *any_cast(Any *operand) noexcept {
 | 1. Input Iterator | Go through the content 1 time | std::istream |
 | 2. Forward Iterator | `++` | forward_list, unordered_map, unordered_map |
 | 3. Bidirectional Iterator | `++`, `--` | list, map, set |
-| 4. Random Access Iterator | `++`, `--`, `+=`, `-=`, `<`, `>`, `it1 - it2` | vector, deque | 
+| 4. Random Access Iterator | `++`, `--`, `+=`, `-=`, `<`, `>`, `it1 - it2` | vector, deque |
+
+![image](https://github.com/user-attachments/assets/52e9fb89-7492-497c-b37e-63a0cebb9c9d)
 
 ### [std::advance](https://en.cppreference.com/w/cpp/iterator/advance)
 ```cpp
